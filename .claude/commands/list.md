@@ -1,13 +1,19 @@
 ---
-description: List all experiments with a one-line summary of each
-allowed-tools: Read, Bash(ls:*), Glob
+description: List practice ladders and experiments, with progress on each
+allowed-tools: Read, Bash(ls:*), Bash(grep:*), Glob
 ---
 
-List every experiment in this scratch project.
+Show what's been practiced in this project, combining the CLAUDE.md index with
+the actual files.
 
-For each file in `src/bin/` (and `src/main.rs`):
-1. Read its top comment / contents.
-2. Show: the run command (`cargo run --bin <name>`, or `cargo run` for main.rs)
-   and a one-line summary of the concept it demonstrates.
+1. Read the **Completed concepts** table in `CLAUDE.md` — that's the canonical
+   list of finished/in-progress ladders.
+2. For each concept file in `src/bin/`, read its top "Ladder:" comment and count
+   how many rungs are marked done vs total (e.g. "Cow — 9/9 done"). For files
+   without a ladder (plain demos like `lifetimes.rs`, `traits.rs`) and
+   `src/main.rs`, just give a one-line summary.
+3. Cross-check: flag any concept file missing from the CLAUDE.md table (suggest
+   adding a row), or any table row whose file is gone.
 
-Present as a compact table or list, sorted by name. Don't run anything.
+Present as a compact table sorted by name: concept | run command | progress
+(rungs done / total) | one-line summary. Don't run cargo — read only.
