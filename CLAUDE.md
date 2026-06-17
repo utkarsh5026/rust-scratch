@@ -1,37 +1,64 @@
 # rust-scratch
 
-A personal Rust playground for trying out concepts. Not a real project — no
-product, no architecture, no stability guarantees. The goal is: when I hit a
-tricky concept and want to *write code and check it*, I drop a file here and run
-it immediately.
+A personal Rust **learn-by-doing** workspace. This is not a product — it's where
+I drill Rust concepts until I actually understand them. The whole project is
+built around one workflow: pick a concept, get a ladder of problems, and
+implement each one myself with coaching (never handed the solution).
 
-## How it's structured
+The engine for this is the **`rust-practice` skill** (`.claude/skills/rust-practice/`).
 
-A single Cargo crate. Experiments are independent binaries.
+## The core loop
+
+I name a concept → the skill builds a **ladder of 7-9 problems** (easy → mastery)
+in a single file `src/bin/<concept>.rs` → I implement one rung at a time, running
+`cargo run --bin <concept>` to check → I get staged hints if stuck, never the
+answer up front.
+
+Just say e.g. *"practice `Rc`/`RefCell`"*, *"drill iterators"*, or
+`/rust-practice <concept>` to start a new ladder.
+
+The full curriculum lives in **`ROADMAP.md`** — a 9-phase path from basics to
+advanced Rust (ownership → traits → async internals → unsafe → perf → macros →
+capstones). Each item there is a ladder to run with the practice skill. When I
+ask "what's next" or "give me the next concept", pull the next unchecked item
+from ROADMAP.md, build its ladder, and tick the box when I finish it.
+
+### How a concept file is laid out
+
+- One file per concept: `src/bin/<concept>.rs`.
+- Each problem = a function I implement + a `check_N()` that asserts it.
+- `main` runs `check_1(); check_2(); …` in order, so it replays every solved rung
+  and stops at the first unfinished one (its `todo!` panics).
+- A "Ladder:" comment at the top lists all rungs and marks which are done.
+- The ladder goes all the way to mastery: foundations → mechanics → footguns &
+  edge cases → real-world patterns → a build-it-from-scratch capstone.
+
+## Completed concepts
+
+| Concept | File | Run | Rungs |
+|---------|------|-----|-------|
+| `Cow` (Clone-on-Write) | `src/bin/cow.rs` | `cargo run --bin cow` | 9 — basics → serde zero-copy → reimplement from scratch |
+
+_(early standalone demos, not ladders: `src/bin/lifetimes.rs`, `src/bin/traits.rs`)_
+
+## Project layout
 
 ```
 rust-scratch/
 ├── Cargo.toml
+├── CLAUDE.md
+├── ROADMAP.md                  # the 9-phase mastery curriculum (what to practice next)
+├── .claude/
+│   ├── skills/rust-practice/   # the practice-ladder coach (the heart of this project)
+│   └── commands/               # /experiment, /run, /explain, /list
 └── src/
-    ├── main.rs          # scratch pad — quick throwaway code
-    └── bin/             # one file per concept, each with its own fn main()
-        ├── lifetimes.rs
-        └── traits.rs
+    ├── main.rs                 # scratch pad for quick throwaway code (cargo run)
+    └── bin/                    # one file per concept ladder
 ```
-
-## Workflow
-
-- **Quick throwaway** → edit `src/main.rs`, run `cargo run`
-- **Keep a concept** → create `src/bin/<concept>.rs` with its own `fn main()`,
-  run `cargo run --bin <concept>`
-- **Async experiment** → add `#[tokio::main]` to `async fn main()`
-- **Need a crate** → add it under `[dependencies]` in `Cargo.toml`
-
-Each file in `src/bin/` is fully self-contained. They don't import each other.
 
 ## Available dependencies
 
-Common crates are preinstalled so experiments don't need setup:
+Preinstalled so ladders never need setup:
 
 - **async**: `tokio` (full), `futures`, `async-trait`
 - **errors**: `anyhow`, `thiserror`
@@ -39,13 +66,20 @@ Common crates are preinstalled so experiments don't need setup:
 - **http**: `reqwest`
 - **utils**: `rand`, `tracing`, `tracing-subscriber`
 
+Add more under `[dependencies]` in `Cargo.toml` as a concept needs them.
+
 ## Guidance for Claude
 
-- This is throwaway/learning code. Favor clarity that *demonstrates the concept*
-  over production patterns. Comments explaining *why* are welcome.
-- Don't over-engineer. No need for tests, error handling ceremony, or module
-  splitting unless the concept being explored is exactly that.
-- When adding a new experiment, put it in `src/bin/<name>.rs` and note the run
-  command (`cargo run --bin <name>`) in a top comment.
-- Don't delete or rewrite existing experiments — they're notes-to-self. Add new
-  files instead.
+- **Default to the `rust-practice` skill.** When I name a Rust concept I want to
+  learn/practice/drill, build a ladder — don't just explain it or write a demo.
+- **Coach, don't solve.** Never pre-fill a solution body. Use `todo!()` / `// TODO`
+  and give hints in stages; reveal the answer only if I explicitly ask.
+- **One rung at a time.** Show the full ladder up front, but scaffold and hand
+  over only the current problem.
+- **Reach mastery.** Take ladders all the way (edge cases, real-world patterns,
+  a from-scratch capstone). When in doubt, add another rung.
+- **Keep the file compiling.** A scaffolded `todo!` should panic at runtime, not
+  break compilation — otherwise earlier solved rungs stop running.
+- **Don't rewrite my solved rungs.** They're notes-to-self. Append new rungs/files.
+- When a concept ladder is finished, add a row to the **Completed concepts** table.
+- For pure deep teaching (not practice), defer to the `/rustacean` skill.
