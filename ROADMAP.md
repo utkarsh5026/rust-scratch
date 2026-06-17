@@ -59,7 +59,7 @@ Stop fighting the borrow checker and start predicting it. Understand *where data
 lives*, *who may touch it*, and *how values convert*.
 
 - [x] **`Cow`** — clone-on-write, borrow-vs-own decisions ✅ *(done — `src/bin/cow.rs`)*
-- [ ] **`Box` & the heap** — ownership of heap data, recursive types, `Box<dyn Trait>`
+- [x] **`Box` & the heap** — ownership of heap data, recursive types, `Box<dyn Trait>` ✅ *(done — `src/bin/box_heap.rs`)*
 - [ ] 🔥 **`Rc` / `Arc`** — shared ownership, reference counting, cycles & `Weak`
 - [ ] **`RefCell` / `Cell`** — interior mutability and the runtime borrow check
 - [ ] **`Rc<RefCell<T>>` patterns** — when shared-mutable is right, and its costs

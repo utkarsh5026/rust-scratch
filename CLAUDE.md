@@ -38,6 +38,7 @@ from ROADMAP.md, build its ladder, and tick the box when I finish it.
 | Concept | File | Run | Rungs |
 |---------|------|-----|-------|
 | `Cow` (Clone-on-Write) | `src/bin/cow.rs` | `cargo run --bin cow` | 9 — basics → serde zero-copy → reimplement from scratch |
+| `Box` & the heap | `src/bin/box_heap.rs` | `cargo run --bin box_heap` | 9 — basics → recursive types → `dyn Trait`/`dyn Error`/`Box::leak` → hand-rolled linked list w/ iterative Drop |
 
 _(early standalone demos, not ladders: `src/bin/lifetimes.rs`, `src/bin/traits.rs`)_
 
