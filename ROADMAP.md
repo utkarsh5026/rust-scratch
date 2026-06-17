@@ -16,7 +16,7 @@ concept, start it with the practice skill:
 
 > `practice <concept>`  →  builds `src/bin/<concept>.rs` with 7-9 rungs to mastery
 
-So the ~90 items here are really **~700 hands-on problems**. Work a ladder, tick
+So the ~~90 items here are really **~~700 hands-on problems**. Work a ladder, tick
 the box, and add a row to the **Completed concepts** table in `CLAUDE.md`. Read
 the linked resource *alongside* the ladder, not before — theory sticks faster
 once your hands have hit the problem.
@@ -58,19 +58,19 @@ suite that includes a property test and a doctest, and explain why features must
 Stop fighting the borrow checker and start predicting it. Understand *where data
 lives*, *who may touch it*, and *how values convert*.
 
-- [x] **`Cow`** — clone-on-write, borrow-vs-own decisions ✅ *(done — `src/bin/cow.rs`)*
-- [x] **`Box` & the heap** — ownership of heap data, recursive types, `Box<dyn Trait>` ✅ *(done — `src/bin/box_heap.rs`)*
-- [ ] 🔥 **`Rc` / `Arc`** — shared ownership, reference counting, cycles & `Weak`
-- [ ] **`RefCell` / `Cell`** — interior mutability and the runtime borrow check
-- [ ] **`Rc<RefCell<T>>` patterns** — when shared-mutable is right, and its costs
-- [ ] **`OnceCell` / `LazyLock` / `OnceLock`** — lazy & one-time initialization
+- [x] `**Cow`** — clone-on-write, borrow-vs-own decisions ✅ *(done — `src/bin/cow.rs`)*
+- [x] `**Box` & the heap** — ownership of heap data, recursive types, `Box<dyn Trait>` ✅ *(done — `src/bin/box_heap.rs`)*
+- [x] 🔥 `**Rc` / `Arc*`* — shared ownership, reference counting, cycles & `Weak` ✅ *(done — `src/bin/rc_arc.rs`)*
+- [ ] `**RefCell` / `Cell**` — interior mutability and the runtime borrow check
+- [ ] `**Rc<RefCell<T>>` patterns** — when shared-mutable is right, and its costs
+- [ ] `**OnceCell` / `LazyLock` / `OnceLock`** — lazy & one-time initialization
 - [ ] 🔥 **Conversion traits** — `From`/`Into`, `TryFrom`/`TryInto`, `AsRef`/`AsMut`
-- [ ] **`Borrow` / `ToOwned`** — the traits `Cow` and `HashMap` keys are built on (closes the `Cow` loop)
+- [ ] `**Borrow` / `ToOwned`** — the traits `Cow` and `HashMap` keys are built on (closes the `Cow` loop)
 - [ ] 🔥 **Lifetimes in depth** — elision rules, `'a: 'b` bounds, lifetimes in structs & impls
 - [ ] **HRTB — `for<'a>`** — higher-ranked bounds, why closures over references need them
 - [ ] 🔥 **Variance & subtyping** — covariance/contravariance, `&T` vs `&mut T`, `PhantomData`
 - [ ] **The never type `!` & DSTs** — diverging functions, `!` coercion, `str`/`[T]`/`dyn` as unsized types
-- [ ] **`Drop` & ordering** — destructor order, drop flags, `ManuallyDrop`, `mem::forget`/`take`/`replace`
+- [ ] `**Drop` & ordering** — destructor order, drop flags, `ManuallyDrop`, `mem::forget`/`take`/`replace`
 
 *Mastery check:* you can draw the memory layout of an `Rc<RefCell<Vec<T>>>`,
 explain every pointer, predict a variance-related compile error, and explain why
@@ -91,7 +91,7 @@ Design abstractions, not just consume them. The single biggest intermediate→ad
 - [ ] **Sealed traits** — restricting who can implement your trait, and why
 - [ ] **Marker & auto traits** — `Send`, `Sync`, `Sized`, `Copy`; `?Sized`; negative reasoning
 - [ ] **Operator overloading & `Deref`** — `Add`, `Index`, deref coercion, `Deref` abuse
-- [ ] 🔥 **`impl Trait` & RPIT** — `impl Trait` in args/returns, `async fn` desugaring
+- [ ] 🔥 `**impl Trait` & RPIT** — `impl Trait` in args/returns, `async fn` desugaring
 - [ ] **GATs (generic associated types)** — lending iterators, the patterns they unlock
 - [ ] **Const generics** — `[T; N]` generic over `N`, type-level numbers
 - [ ] 🔥 **Closures & `Fn`/`FnMut`/`FnOnce`** — how closures capture, returning closures, fn pointers
@@ -128,8 +128,8 @@ classify a list of changes to a public API as breaking or not.
 Fearless concurrency, *understood* — not `Arc<Mutex<T>>` cargo-culting.
 
 - [ ] **Threads & scoped threads** — `std::thread`, `thread::scope`, `JoinHandle`
-- [ ] 🔥 **`Send` & `Sync` deeply** — what they really guarantee, why `Rc` is `!Send`
-- [ ] **`Mutex` / `RwLock`** — poisoning, lock guards, deadlock avoidance, lock ordering
+- [ ] 🔥 `**Send` & `Sync` deeply** — what they really guarantee, why `Rc` is `!Send`
+- [ ] `**Mutex` / `RwLock`** — poisoning, lock guards, deadlock avoidance, lock ordering
 - [ ] **Channels** — `mpsc`, bounded vs unbounded, `crossbeam` channels, backpressure
 - [ ] 🔥 **Atomics & memory ordering** — `Relaxed`/`Acquire`/`Release`/`SeqCst`, happens-before
 - [ ] 🔥 **Lock-free basics** — a `SpinLock`, atomic counters/flags, the ABA problem
@@ -146,12 +146,12 @@ and explain why `Relaxed` would be a bug there.
 
 Understand async from the `Future` trait up, not just `.await` syntax.
 
-- [ ] 🔥 **`Future` trait & `poll`** — what `.await` desugars to, the generated state machine
-- [ ] 🔥 **`Pin` & `Unpin`** — self-referential futures, why `Pin` exists, `Box::pin`
+- [ ] 🔥 `**Future` trait & `poll`** — what `.await` desugars to, the generated state machine
+- [ ] 🔥 `**Pin` & `Unpin**` — self-referential futures, why `Pin` exists, `Box::pin`
 - [ ] **Writing a future by hand** — implement `Future`, wakers, `Context`
 - [ ] 🔥 **Building a tiny executor** — poll loop, task queue, waking — runtimes demystified
-- [ ] **`pin-project`** — safe field projection through `Pin` without unsafe
-- [ ] **`tokio` essentials** — tasks, `spawn`, `select!`, `join!`, `spawn_blocking`
+- [ ] `**pin-project`** — safe field projection through `Pin` without unsafe
+- [ ] `**tokio` essentials** — tasks, `spawn`, `select!`, `join!`, `spawn_blocking`
 - [ ] **Cancellation & structured concurrency** — drop = cancel, `CancellationToken`, `JoinSet`
 - [ ] **Async traits & lifetimes** — `async fn` in traits, `async-trait`, the lifetime gotchas
 - [ ] **Streams** — `Stream` trait, async iteration, `StreamExt`, backpressure
@@ -171,13 +171,13 @@ Write `unsafe` that is actually *sound*. The gateway to truly advanced Rust.
 - [ ] 🔥 **Raw pointers** — `*const`/`*mut`, `&` vs raw, pointer arithmetic, provenance
 - [ ] **The 5 unsafe superpowers** — deref raw ptr, call unsafe fn, `static mut`, unions, impl unsafe trait
 - [ ] 🔥 **Type layout** — `repr(C)`, `repr(transparent)`, alignment, padding, `size_of`/`align_of`
-- [ ] **`MaybeUninit`** — uninitialized memory done right
+- [ ] `**MaybeUninit`** — uninitialized memory done right
 - [ ] 🔥 **Aliasing & Stacked Borrows** — the rules `&mut` must obey, what Miri checks, what UB *is*
 - [ ] 🔥 **Implementing a `Vec`** — the Rustonomicon capstone: grow, push, pop, `Drop`, from scratch
 - [ ] **Sound unsafe abstractions** — upholding invariants, `// SAFETY:` discipline
 - [ ] **Custom allocators** — `GlobalAlloc`, `#[global_allocator]`, arena/bump allocators
 - [ ] **FFI** — calling C & being called from C, `extern "C"`, opaque types, callbacks, `bindgen`
-- [ ] **`PhantomData` & drop check** — telling the compiler about ownership held via raw pointers
+- [ ] `**PhantomData` & drop check** — telling the compiler about ownership held via raw pointers
 
 *Mastery check:* your hand-rolled `Vec` passes `cargo miri` with no UB, and you can
 state the safety invariant your abstraction upholds.
@@ -226,18 +226,22 @@ You don't need all of these — pick the domain(s) you actually work in. Each is
 mini-roadmap of its own.
 
 **Systems / embedded**
-- [ ] **`no_std`** — no allocator, `core`/`alloc`, panic handlers
+
+- [ ] `**no_std`** — no allocator, `core`/`alloc`, panic handlers
 - [ ] **Embedded basics** — `embedded-hal`, memory-mapped IO, interrupts (concepts)
 
 **Web / network services**
+
 - [ ] **HTTP servers** — `axum`/`actix`, routing, extractors, state
 - [ ] **Database & async IO** — `sqlx`, connection pools, transactions
 - [ ] **Serialization at scale** — `serde` advanced, zero-copy, custom (de)serializers
 
 **WASM**
+
 - [ ] **Rust → WASM** — `wasm-bindgen`, the JS boundary, `wasm-pack`
 
 **CLI / tooling**
+
 - [ ] **Production CLIs** — `clap`, config, structured logging with `tracing`
 
 ---
@@ -260,17 +264,19 @@ sub-folder or a fresh crate (they don't fit the single-file ladder format).
 
 Keep these open as you go (most are free online):
 
-| Resource | Best for |
-|----------|----------|
-| **The Rustonomicon** | unsafe, variance, layout, implementing `Vec` |
-| **Rust Atomics and Locks** (Mara Bos) | Phase 4 — concurrency & atomics |
-| **Rust for Rustaceans** (Jon Gjengset) | the whole advanced arc; traits, API, macros |
-| **Jon Gjengset's "Crust of Rust" videos** | live deep-dives: lifetimes, atomics, Pin, dispatch |
-| **The Async Book** + **withoutboats' blog** | Phase 5 — futures, Pin, async design |
-| **The Rust Performance Book** | Phase 7 |
-| **The Little Book of Rust Macros** | Phase 8 |
-| **The Cargo Book** + **Rust API Guidelines** | Phase 0 & 3 |
-| **`cargo miri`, `clippy`, `cargo-asm`, `cargo-expand`, `criterion`** | the tools you verify mastery with |
+
+| Resource                                                             | Best for                                           |
+| -------------------------------------------------------------------- | -------------------------------------------------- |
+| **The Rustonomicon**                                                 | unsafe, variance, layout, implementing `Vec`       |
+| **Rust Atomics and Locks** (Mara Bos)                                | Phase 4 — concurrency & atomics                    |
+| **Rust for Rustaceans** (Jon Gjengset)                               | the whole advanced arc; traits, API, macros        |
+| **Jon Gjengset's "Crust of Rust" videos**                            | live deep-dives: lifetimes, atomics, Pin, dispatch |
+| **The Async Book** + **withoutboats' blog**                          | Phase 5 — futures, Pin, async design               |
+| **The Rust Performance Book**                                        | Phase 7                                            |
+| **The Little Book of Rust Macros**                                   | Phase 8                                            |
+| **The Cargo Book** + **Rust API Guidelines**                         | Phase 0 & 3                                        |
+| `**cargo miri`, `clippy`, `cargo-asm`, `cargo-expand`, `criterion`** | the tools you verify mastery with                  |
+
 
 ---
 

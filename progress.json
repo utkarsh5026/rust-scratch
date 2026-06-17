@@ -17,6 +17,15 @@
     { "date": "2026-06-17", "phase": 1, "concept": "box_heap", "rung": 6, "tier": "footgun", "hints": 0, "first_try": true, "miri_clean": false },
     { "date": "2026-06-17", "phase": 1, "concept": "box_heap", "rung": 7, "tier": "real-world", "hints": 0, "first_try": true, "miri_clean": false },
     { "date": "2026-06-17", "phase": 1, "concept": "box_heap", "rung": 8, "tier": "real-world", "hints": 0, "first_try": true, "miri_clean": false },
-    { "date": "2026-06-17", "phase": 1, "concept": "box_heap", "rung": 9, "tier": "capstone", "hints": 0, "first_try": true, "miri_clean": false }
+    { "date": "2026-06-17", "phase": 1, "concept": "box_heap", "rung": 9, "tier": "capstone", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-17", "phase": 1, "concept": "rc_arc", "rung": 1, "tier": "foundations", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-17", "phase": 1, "concept": "rc_arc", "rung": 2, "tier": "foundations", "hints": 1, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-17", "phase": 1, "concept": "rc_arc", "rung": 3, "tier": "mechanics", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-17", "phase": 1, "concept": "rc_arc", "rung": 4, "tier": "mechanics", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "rc_arc", "rung": 5, "tier": "mechanics", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "rc_arc", "rung": 6, "tier": "footgun", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "rc_arc", "rung": 7, "tier": "footgun", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "rc_arc", "rung": 8, "tier": "real-world", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "rc_arc", "rung": 9, "tier": "capstone", "hints": 0, "first_try": true, "miri_clean": false }
   ]
 }
