@@ -8,6 +8,8 @@
 
 use serde::Deserialize;
 use std::collections::{BTreeMap, BTreeSet};
+use std::io::IsTerminal;
+use std::sync::OnceLock;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 #[derive(Deserialize)]
@@ -79,18 +81,83 @@ const PHASE_TOTALS: &[(u8, &str, u32)] = &[
     (9, "Specialization", 8),
 ];
 
-fn bar(done: u32, total: u32, width: u32) -> String {
-    let filled = if total == 0 {
+// ---- terminal styling -----------------------------------------------------
+type Rgb = (u8, u8, u8);
+
+// One Dark-ish palette: easy on the eyes, good contrast on dark terminals.
+const RUST: Rgb = (222, 113, 47); // signature rust orange
+const GOLD: Rgb = (229, 192, 123); // XP / highlights
+const GREEN: Rgb = (152, 195, 121); // completed
+const RED: Rgb = (224, 108, 117); // streak fire
+const BLUE: Rgb = (97, 175, 239);
+const PURPLE: Rgb = (198, 120, 221);
+const CYAN: Rgb = (86, 182, 194);
+const FG: Rgb = (220, 223, 228); // primary text
+const DIMC: Rgb = (92, 99, 112); // muted / empty cells
+
+const PANEL_WIDTH: usize = 50;
+
+// Color is on only for a real TTY and when NO_COLOR is unset (so piped output
+// stays clean ASCII). Cached so we resolve the environment exactly once.
+fn color_enabled() -> bool {
+    static ENABLED: OnceLock<bool> = OnceLock::new();
+    *ENABLED
+        .get_or_init(|| std::env::var_os("NO_COLOR").is_none() && std::io::stdout().is_terminal())
+}
+
+fn styled(s: &str, (r, g, b): Rgb, bold: bool) -> String {
+    if !color_enabled() {
+        return s.to_string();
+    }
+    let weight = if bold { "1;" } else { "" };
+    format!("\x1b[{weight}38;2;{r};{g};{b}m{s}\x1b[0m")
+}
+
+fn lerp((ar, ag, ab): Rgb, (br, bg, bb): Rgb, t: f32) -> Rgb {
+    let mix = |a: u8, b: u8| (a as f32 + (b as f32 - a as f32) * t).round() as u8;
+    (mix(ar, br), mix(ag, bg), mix(ab, bb))
+}
+
+fn filled_cells(done: u32, total: u32, width: u32) -> u32 {
+    if total == 0 {
         0
     } else {
-        (done * width) / total
-    };
-    let filled = filled.min(width);
+        ((done * width) / total).min(width)
+    }
+}
+
+// Solid-color bar: filled cells in `color`, the rest dimmed.
+fn solid_bar(done: u32, total: u32, width: u32, color: Rgb) -> String {
+    let filled = filled_cells(done, total, width);
     format!(
         "{}{}",
-        "█".repeat(filled as usize),
-        "░".repeat((width - filled) as usize)
+        styled(&"█".repeat(filled as usize), color, false),
+        styled(&"░".repeat((width - filled) as usize), DIMC, false),
     )
+}
+
+// Gradient bar: filled cells fade `start` → `end` across their span.
+fn grad_bar(done: u32, total: u32, width: u32, start: Rgb, end: Rgb) -> String {
+    let filled = filled_cells(done, total, width);
+    let mut out = String::new();
+    for i in 0..width {
+        if i < filled {
+            let t = if filled <= 1 {
+                0.0
+            } else {
+                i as f32 / (filled - 1) as f32
+            };
+            out.push_str(&styled("█", lerp(start, end, t), false));
+        } else {
+            out.push_str(&styled("░", DIMC, false));
+        }
+    }
+    out
+}
+
+fn rule(width: usize, heavy: bool, color: Rgb) -> String {
+    let ch = if heavy { "━" } else { "─" };
+    styled(&ch.repeat(width), color, false)
 }
 
 // ---- date helpers (no chrono) --------------------------------------------
@@ -214,12 +281,23 @@ fn main() {
     let (cur_streak, best_streak) = streaks(&days);
 
     // ---- render ----------------------------------------------------------
+    // Layout is a stack of sections separated by horizontal rules — no closed
+    // box, so emoji double-width never breaks right-edge alignment.
     println!();
-    println!("  ╔══════════════════════════════════════════════╗");
-    println!("  ║            🦀  RUST MASTERY  🦀               ║");
-    println!("  ╚══════════════════════════════════════════════╝");
+    println!(
+        "  {}  {}",
+        styled("🦀", RUST, true),
+        styled("RUST  MASTERY", FG, true)
+    );
+    println!("  {}", rule(PANEL_WIDTH, true, RUST));
     println!();
-    print!("   {emoji}  {name}   ·   {total_xp} XP");
+
+    // Rank headline: emoji · bold name · gold XP.
+    println!(
+        "  {emoji}  {}        {}",
+        styled(name, RUST, true),
+        styled(&format!("{total_xp} XP"), GOLD, true)
+    );
     match next {
         Some((t, ne, nn)) => {
             let span_lo = RANKS
@@ -230,52 +308,112 @@ fn main() {
                 .unwrap_or(0);
             let into = total_xp - span_lo;
             let span = t - span_lo;
-            println!("   →  {ne} {nn} in {} XP", t - total_xp);
-            println!("   {}  {into}/{span}", bar(into, span, 30));
+            let pct = if span == 0 { 100 } else { into * 100 / span };
+            println!(
+                "  {}",
+                styled(
+                    &format!("next  {ne} {nn}  ·  {} XP to go", t - total_xp),
+                    DIMC,
+                    false
+                )
+            );
+            println!(
+                "  {}  {}",
+                grad_bar(into, span, 28, RUST, GOLD),
+                styled(&format!("{into}/{span}  ·  {pct}%"), FG, false)
+            );
         }
-        None => println!("   →  MAX RANK 👑"),
+        None => println!("  {}", styled("👑  MAX RANK", GOLD, true)),
     }
     println!();
+    println!("  {}", rule(PANEL_WIDTH, false, DIMC));
+    println!();
 
+    // Phases.
     let total_done: u32 = completed.len() as u32;
     let total_ladders: u32 = PHASE_TOTALS.iter().map(|(_, _, n)| *n).sum::<u32>() + 6; // +capstones
-    println!("   Ladders cleared: {total_done} / ~{total_ladders}");
+    println!(
+        "  {}{}{}",
+        styled("PHASES", FG, true),
+        " ".repeat(PANEL_WIDTH.saturating_sub(6 + 17)),
+        styled(
+            &format!("{total_done} / {total_ladders} ladders cleared"),
+            DIMC,
+            false
+        )
+    );
     println!();
-    println!("   Phase progress");
     for (p, label, total) in PHASE_TOTALS {
         let done = done_per_phase.get(p).copied().unwrap_or(0);
-        let mark = if done >= *total { "✓" } else { " " };
+        let complete = done >= *total;
+        let started = done > 0;
+        let (mark, bar_color, label_color, count_color) = if complete {
+            (styled("✓", GREEN, true), GREEN, FG, GREEN)
+        } else if started {
+            (styled("▸", RUST, true), RUST, FG, GOLD)
+        } else {
+            (styled("·", DIMC, false), DIMC, DIMC, DIMC)
+        };
         println!(
-            "   {mark} P{p} {:<22} {}  {done}/{total}",
-            label,
-            bar(done, *total, 16)
+            "  {mark} {}  {}  {}  {}",
+            styled(&format!("P{p}"), DIMC, false),
+            styled(&format!("{label:<22}"), label_color, false),
+            solid_bar(done, *total, 16, bar_color),
+            styled(&format!("{done}/{total}"), count_color, false)
         );
     }
     println!();
+    println!("  {}", rule(PANEL_WIDTH, false, DIMC));
+    println!();
 
-    println!("   Achievements");
-    let badge = |n: usize, icon: &str, label: &str| {
+    // Achievements — each present badge becomes a styled chip, two per row.
+    println!("  {}", styled("ACHIEVEMENTS", FG, true));
+    println!();
+    let mut chips: Vec<String> = Vec::new();
+    let mut chip = |n: usize, icon: &str, label: &str, color: Rgb| {
         if n > 0 {
-            println!("   {icon}  {label} ×{n}");
+            chips.push(format!(
+                "{icon}  {} {}",
+                styled(label, FG, false),
+                styled(&format!("×{n}"), color, true)
+            ));
         }
     };
-    badge(hint_free, "🏅", "Hint-Free ladder");
-    badge(one_shot, "🎯", "One-Shot rung");
-    badge(miri, "🧪", "Miri-Clean");
-    badge(capstones, "🏛️ ", "Capstone");
-    badge(phase_clears, "⭐", "Phase Clear");
+    chip(hint_free, "🏅", "Hint-Free", GOLD);
+    chip(one_shot, "🎯", "One-Shot", BLUE);
+    chip(miri, "🧪", "Miri-Clean", CYAN);
+    chip(capstones, "🏛️", "Capstone", PURPLE);
+    chip(phase_clears, "⭐", "Phase Clear", GOLD);
     if best_streak >= 7 {
-        println!("   🔥  Streak-7 unlocked");
+        chips.push(format!("🔥  {}", styled("Streak-7", RED, true)));
     }
-    if hint_free + one_shot + miri + capstones + phase_clears == 0 {
-        println!("   (none yet — go solve a rung!)");
+    if chips.is_empty() {
+        println!("  {}", styled("(none yet — go solve a rung!)", DIMC, false));
+    } else {
+        for row in chips.chunks(2) {
+            println!("  {}", row.join("       "));
+        }
     }
     println!();
 
+    // Streak footer.
     if cur_streak > 0 {
-        println!("   🔥  {cur_streak}-day streak   (best: {best_streak})");
+        println!(
+            "  {} {}   {}",
+            styled("🔥", RED, false),
+            styled(&format!("{cur_streak}-day streak"), RED, true),
+            styled(&format!("·  best {best_streak}"), DIMC, false)
+        );
     } else {
-        println!("   🔥  no active streak — practice today to start one (best: {best_streak})");
+        println!(
+            "  {} {}",
+            styled("🔥", DIMC, false),
+            styled(
+                &format!("no active streak — practice today to start one  ·  best {best_streak}"),
+                DIMC,
+                false
+            )
+        );
     }
     println!();
 }
