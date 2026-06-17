@@ -15,6 +15,10 @@ mastery curriculum in [`ROADMAP.md`](./ROADMAP.md).
 4. Get **staged hints** if stuck — the solution is revealed only if you ask
 5. Each ladder ends in a **build-it-from-scratch capstone**
 
+Every solved rung earns **XP** and feeds a gamified dashboard (`cargo run --bin
+stats` or `/stats`): ranks 🥚→🦀→…→👑, achievements (Hint-Free, One-Shot,
+Miri-Clean, Capstone, Phase Clear), and a daily **streak**.
+
 ```
 practice Rc and RefCell      # start a new ladder
 cargo run --bin rc_refcell   # run it — passes the solved rungs, stops at your next todo!
@@ -106,6 +110,7 @@ rust-scratch/
 | Command | Does |
 |---------|------|
 | `/rust-practice <concept>` | start a coached practice ladder |
+| `/stats` | show the gamified dashboard — rank, XP, phases, badges, streak |
 | `/list` | show ladders & per-concept progress |
 | `/run <name>` | run an experiment and explain its output |
 | `/explain <name>` | tutor-mode walkthrough of an existing file |

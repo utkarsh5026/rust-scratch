@@ -95,7 +95,8 @@ File layout convention:
 
 - Read their code. Run `cargo run --bin <name>` (and `cargo clippy` if useful).
 - **If it works:** confirm what they got right, point out anything subtle they
-  may have lucked into, then offer the next rung of the ladder.
+  may have lucked into, **record the win** (see Progress tracking below), then
+  offer the next rung of the ladder.
 - **If it's broken:** give the *smallest useful hint first* — name the concept or
   the line, not the fix. Escalate only if they're still stuck:
   1. Conceptual nudge ("think about who owns `s` after this line").
@@ -117,3 +118,27 @@ File layout convention:
 - Prefer making the *concept's pain* visible (a borrow error, a lifetime
   mismatch) over smoothing it away — that's where the learning is.
 - If the user asks to be taught rather than to practice, defer to `/rustacean`.
+
+## Progress tracking (gamification)
+
+When a rung's `check_N` passes, append one event to `progress.json` (the file
+`src/bin/stats.rs` reads). This is what earns XP, ranks, achievements, and
+streaks — so do it every time, automatically, without being asked.
+
+Append an object to the `events` array with these fields:
+- `date` — today, `YYYY-MM-DD`.
+- `phase` — the ROADMAP.md phase this concept belongs to (0-9).
+- `concept` — the bin name (e.g. `cow`).
+- `rung` — the rung number.
+- `tier` — one of `foundations` | `mechanics` | `footgun` | `real-world` |
+  `capstone`. Match the rung's tier in the ladder (the capstone rung is always
+  `capstone`).
+- `hints` — how many hints you gave on this rung before they solved it (0 if they
+  got it unaided; this drives the Hint-Free badge and the no-hint XP bonus).
+- `first_try` — `true` if their first submission compiled (no compile-error round).
+- `miri_clean` — `true` only for unsafe rungs they verified with `cargo miri`.
+
+Edit the JSON directly (read it, add the event, write it back). After the final
+(capstone) rung of a concept, add a row to the **Completed concepts** table in
+`CLAUDE.md`, and mention they can run `/stats` to see their updated rank. When a
+new event tips them into a new rank or completes a phase, call it out.
