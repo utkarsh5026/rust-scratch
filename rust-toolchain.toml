@@ -1,0 +1,6 @@
+# Pin the project to stable so `cargo build/run/test` and CI all agree.
+# Miri runs on nightly explicitly via `scripts/miri` (it ships nightly-only),
+# so it overrides this with `+nightly` and never clashes with the default.
+[toolchain]
+channel = "stable"
+components = ["rustfmt", "clippy"]

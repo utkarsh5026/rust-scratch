@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+#
+# Miri wrapper for rust-scratch.
+#
+# Runs a practice bin under Miri (nightly toolchain) to check for undefined
+# behavior, invalid aliasing, data races, and leaks — the basis for the +25 XP
+# "miri_clean" bonus the stats dashboard awards.
+#
+# Usage:
+#   scripts/miri <bin> [extra cargo/miri args...]   run a bin under Miri
+#   scripts/miri --ignore-leaks <bin> [args...]     allow intentional Box::leak
+#   scripts/miri --list                             list available bins
+#   scripts/miri --help                             show this help
+#
+# Notes:
+#   * Network/syscall-heavy bins (tokio/reqwest doing real I/O) can't run under
+#     Miri — it interprets code in isolation. Use it for unsafe, raw pointers,
+#     aliasing, and Drop correctness.
+#   * Pass your own MIRIFLAGS to layer on extra checks, e.g.
+#       MIRIFLAGS=-Zmiri-strict-provenance scripts/miri box_heap
+set -euo pipefail
+
+# Run from the repo root regardless of where the script is invoked.
+cd "$(dirname "$0")/.."
+
+usage() {
+  # Print the comment header above (lines starting with `#`).
+  sed -n '3,22p' "$0" | sed 's/^#\{0,1\} \{0,1\}//'
+}
+
+extra_miriflags=""
+case "${1:-}" in
+  -h | --help | "")
+    usage
+    exit 0
+    ;;
+  -l | --list)
+    echo "Available bins:"
+    for f in src/bin/*.rs; do
+      echo "  $(basename "$f" .rs)"
+    done
+    exit 0
+    ;;
+  --ignore-leaks)
+    extra_miriflags="-Zmiri-ignore-leaks"
+    shift
+    ;;
+esac
+
+if [[ -z "${1:-}" ]]; then
+  echo "error: no bin given" >&2
+  echo >&2
+  usage >&2
+  exit 1
+fi
+
+bin="$1"
+shift
+
+if [[ ! -f "src/bin/${bin}.rs" ]]; then
+  echo "error: no such bin 'src/bin/${bin}.rs'" >&2
+  echo "run 'scripts/miri --list' to see available bins" >&2
+  exit 1
+fi
+
+# Layer our flag onto any MIRIFLAGS the caller already set.
+export MIRIFLAGS="${MIRIFLAGS:-} ${extra_miriflags}"
+MIRIFLAGS="$(echo "$MIRIFLAGS" | xargs)" # trim stray whitespace
+
+echo "▶ cargo +nightly miri run --bin ${bin}${MIRIFLAGS:+  (MIRIFLAGS: ${MIRIFLAGS})}"
+exec cargo +nightly miri run --bin "$bin" "$@"
