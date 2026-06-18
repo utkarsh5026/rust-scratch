@@ -1,0 +1,25 @@
+[book]
+title = "Rust Mastery Notes"
+authors = ["Utkarsh Priyadarshi"]
+description = "Learn-by-doing notes distilled from the rust-scratch practice ladders."
+language = "en"
+src = "src"
+
+[output.html]
+default-theme = "navy"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/utkarsh5026/rust-scratch"
+edit-url-template = "https://github.com/utkarsh5026/rust-scratch/edit/master/docs/{path}"
+site-url = "/rust-scratch/"
+no-section-label = false
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.search]
+enable = true
+limit-results = 20
+
+[output.html.playground]
+editable = false
