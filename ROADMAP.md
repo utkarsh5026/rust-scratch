@@ -65,8 +65,8 @@ lives*, *who may touch it*, and *how values convert*.
 - [ ] `**Rc<RefCell<T>>` patterns** — when shared-mutable is right, and its costs
 - [ ] `**OnceCell` / `LazyLock` / `OnceLock`** — lazy & one-time initialization
 - [x] 🔥 **Conversion traits** — `From`/`Into`, `TryFrom`/`TryInto`, `AsRef`/`AsMut` ✅ *(done — `src/bin/conversions.rs`)*
-- [ ] `**Borrow` / `ToOwned`** — the traits `Cow` and `HashMap` keys are built on (closes the `Cow` loop)
-- [ ] 🔥 **Lifetimes in depth** — elision rules, `'a: 'b` bounds, lifetimes in structs & impls
+- [x] `**Borrow` / `ToOwned`** — the traits `Cow` and `HashMap` keys are built on (closes the `Cow` loop) ✅ *(done — `src/bin/borrow_toowned.rs`)*
+- [x] 🔥 **Lifetimes in depth** — elision rules, `'a: 'b` bounds, lifetimes in structs & impls ✅ *(done — `src/bin/lifetimes_depth.rs`)*
 - [ ] **HRTB — `for<'a>`** — higher-ranked bounds, why closures over references need them
 - [ ] 🔥 **Variance & subtyping** — covariance/contravariance, `&T` vs `&mut T`, `PhantomData`
 - [ ] **The never type `!` & DSTs** — diverging functions, `!` coercion, `str`/`[T]`/`dyn` as unsized types
