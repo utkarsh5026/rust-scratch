@@ -42,8 +42,8 @@ from ROADMAP.md, build its ladder, and tick the box when I finish it.
 | `Rc` / `Arc` | `src/bin/rc_arc.rs` | `cargo run --bin rc_arc` | 9 — shared ownership → `strong_count`/diamond DAG → `Rc<str>`/`make_mut` → cycle leak & `Weak` fix → `Arc<Mutex>` across threads → hand-rolled `MyRc<T>` |
 | `Cell` / `RefCell` | `src/bin/cell_refcell.rs` | `cargo run --bin cell_refcell` | 9 — interior mutability → Cell/RefCell toolboxes → runtime borrow panic & re-entrancy → `Rc<RefCell>` graph → `Ref::map` → hand-rolled `MyRefCell` (`UnsafeCell` + flag + RAII guards) |
 | Conversion traits | `src/bin/conversions.rs` | `cargo run --bin conversions` | 9 — `From`/`.into()` free → `impl Into` bounds → `From` powers `?` → `TryFrom` → orphan rule & reflexivity → `as` truncation vs `TryInto` → `AsRef<str>`/`AsRef<Path>`/`AsMut` → mini `serde_json::Value` (From in, TryFrom out, AsRef lookup) |
+| Lifetimes in depth | `src/bin/lifetimes_depth.rs` | `cargo run --bin lifetimes_depth` | 9 — `longest` annotation → 3 elision rules → lifetimes in structs → `impl<'a>` & the &self elision gotcha → dangling/owned-vs-borrowed return → `'a: 'b` outlives bounds (variance seed) → lifetimes + generics + `'static` (`&'static` vs `T: 'static`) → borrowing `Iterator` (Item lifetime) → hand-rolled `StrSplit` (two lifetimes, zero-copy) |
 
-_(early standalone demos, not ladders: `src/bin/lifetimes.rs`, `src/bin/traits.rs`)_
 
 ## Project layout
 
