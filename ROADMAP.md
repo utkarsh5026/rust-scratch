@@ -61,7 +61,7 @@ lives*, *who may touch it*, and *how values convert*.
 - [x] `**Cow`** — clone-on-write, borrow-vs-own decisions ✅ *(done — `src/bin/cow.rs`)*
 - [x] `**Box` & the heap** — ownership of heap data, recursive types, `Box<dyn Trait>` ✅ *(done — `src/bin/box_heap.rs`)*
 - [x] 🔥 `**Rc` / `Arc*`* — shared ownership, reference counting, cycles & `Weak` ✅ *(done — `src/bin/rc_arc.rs`)*
-- [ ] `**RefCell` / `Cell**` — interior mutability and the runtime borrow check
+- [x] `**RefCell` / `Cell**` — interior mutability and the runtime borrow check
 - [ ] `**Rc<RefCell<T>>` patterns** — when shared-mutable is right, and its costs
 - [ ] `**OnceCell` / `LazyLock` / `OnceLock`** — lazy & one-time initialization
 - [ ] 🔥 **Conversion traits** — `From`/`Into`, `TryFrom`/`TryInto`, `AsRef`/`AsMut`

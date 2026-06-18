@@ -26,6 +26,15 @@
     { "date": "2026-06-18", "phase": 1, "concept": "rc_arc", "rung": 6, "tier": "footgun", "hints": 0, "first_try": true, "miri_clean": false },
     { "date": "2026-06-18", "phase": 1, "concept": "rc_arc", "rung": 7, "tier": "footgun", "hints": 0, "first_try": true, "miri_clean": false },
     { "date": "2026-06-18", "phase": 1, "concept": "rc_arc", "rung": 8, "tier": "real-world", "hints": 0, "first_try": true, "miri_clean": false },
-    { "date": "2026-06-18", "phase": 1, "concept": "rc_arc", "rung": 9, "tier": "capstone", "hints": 0, "first_try": true, "miri_clean": false }
+    { "date": "2026-06-18", "phase": 1, "concept": "rc_arc", "rung": 9, "tier": "capstone", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "cell_refcell", "rung": 1, "tier": "foundations", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "cell_refcell", "rung": 2, "tier": "foundations", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "cell_refcell", "rung": 3, "tier": "mechanics", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "cell_refcell", "rung": 4, "tier": "mechanics", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "cell_refcell", "rung": 5, "tier": "footgun", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "cell_refcell", "rung": 6, "tier": "footgun", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "cell_refcell", "rung": 7, "tier": "real-world", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "cell_refcell", "rung": 8, "tier": "real-world", "hints": 0, "first_try": true, "miri_clean": false },
+    { "date": "2026-06-18", "phase": 1, "concept": "cell_refcell", "rung": 9, "tier": "capstone", "hints": 0, "first_try": true, "miri_clean": false }
   ]
 }
