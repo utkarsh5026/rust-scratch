@@ -11,6 +11,7 @@
 - [Cow — Clone-on-Write](concepts/cow.md)
 - [Borrow / ToOwned](concepts/borrow-toowned.md)
 - [Drop & Ordering](concepts/drop-ordering.md)
+- [Rc<RefCell<T>> patterns](concepts/rc-refcell.md)
 
 ---
 

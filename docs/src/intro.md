@@ -32,6 +32,7 @@ Each concept page follows the same shape:
 | `Box` & the heap | _todo_ | `src/bin/box_heap.rs` |
 | `Rc` / `Arc` | _todo_ | `src/bin/rc_arc.rs` |
 | `Cell` / `RefCell` | _todo_ | `src/bin/cell_refcell.rs` |
+| `Rc<RefCell<T>>` patterns | [✅ note](concepts/rc-refcell.md) | `src/bin/rc_refcell.rs` |
 | Conversion traits | _todo_ | `src/bin/conversions.rs` |
 | Lifetimes in depth | _todo_ | `src/bin/lifetimes_depth.rs` |
 | `Borrow` / `ToOwned` | [✅ note](concepts/borrow-toowned.md) | `src/bin/borrow_toowned.rs` |
