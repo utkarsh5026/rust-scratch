@@ -44,6 +44,7 @@ from ROADMAP.md, build its ladder, and tick the box when I finish it.
 | Conversion traits | `src/bin/conversions.rs` | `cargo run --bin conversions` | 9 — `From`/`.into()` free → `impl Into` bounds → `From` powers `?` → `TryFrom` → orphan rule & reflexivity → `as` truncation vs `TryInto` → `AsRef<str>`/`AsRef<Path>`/`AsMut` → mini `serde_json::Value` (From in, TryFrom out, AsRef lookup) |
 | Lifetimes in depth | `src/bin/lifetimes_depth.rs` | `cargo run --bin lifetimes_depth` | 9 — `longest` annotation → 3 elision rules → lifetimes in structs → `impl<'a>` & the &self elision gotcha → dangling/owned-vs-borrowed return → `'a: 'b` outlives bounds (variance seed) → lifetimes + generics + `'static` (`&'static` vs `T: 'static`) → borrowing `Iterator` (Item lifetime) → hand-rolled `StrSplit` (two lifetimes, zero-copy) |
 | `Borrow` / `ToOwned` | `src/bin/borrow_toowned.rs` | `cargo run --bin borrow_toowned` | 9 — `ToOwned` as generalized Clone → `Borrow` views → `HashMap::get(&str)` & `K: Borrow<Q>` → `T::Owned` assoc type → Borrow-vs-AsRef contract (`CiString`) → needless-alloc footgun → Into-in/Borrow-out API split → closing the `Cow` loop → hand-rolled `MyBorrow`+`MyToOwned`+`MyCow` |
+| `Drop` & ordering | `src/bin/drop_ordering.rs` | `cargo run --bin drop_ordering` | 9 — Drop at scope end → locals LIFO vs struct-fields declaration order → `mem::drop` early & `E0040` → drop flags (conditional move, no double-drop) → `mem::forget`/`replace`/`take` → RAII scope guard w/ `.cancel()` → `ManuallyDrop` custom field order (Miri-clean) → rollback-on-drop `Transaction` (commit disarms; panic still rolls back) |
 
 
 ## Project layout
@@ -55,11 +56,26 @@ rust-scratch/
 ├── ROADMAP.md                  # the 9-phase mastery curriculum (what to practice next)
 ├── .claude/
 │   ├── skills/rust-practice/   # the practice-ladder coach (the heart of this project)
-│   └── commands/               # /experiment, /run, /explain, /list
+│   └── commands/               # /experiment, /run, /explain, /list, /document
+├── docs/                       # mdBook knowledge base -> GitHub Pages
+│   ├── book.toml
+│   └── src/
+│       ├── SUMMARY.md          # nav (a page MUST be listed here to be built)
+│       ├── intro.md
+│       ├── concepts/<concept>.md   # one distilled note per finished ladder
+│       └── meta/{adding-a-note,template}.md
 └── src/
     ├── main.rs                 # scratch pad for quick throwaway code (cargo run)
     └── bin/                    # one file per concept ladder
 ```
+
+## Knowledge base (mdBook -> GitHub Pages)
+
+Finished ladders get a **distilled notes page** in `docs/src/concepts/`, published
+as a searchable site at `https://utkarsh5026.github.io/rust-scratch/` via the
+`Deploy docs` GitHub Action (`.github/workflows/docs.yml`). Local preview:
+`mdbook serve docs --open`. See `docs/src/meta/adding-a-note.md` for the workflow
+and `docs/src/meta/template.md` for the page format.
 
 ## Available dependencies
 
@@ -86,5 +102,8 @@ Add more under `[dependencies]` in `Cargo.toml` as a concept needs them.
 - **Keep the file compiling.** A scaffolded `todo!` should panic at runtime, not
   break compilation — otherwise earlier solved rungs stop running.
 - **Don't rewrite my solved rungs.** They're notes-to-self. Append new rungs/files.
-- When a concept ladder is finished, add a row to the **Completed concepts** table.
+- When a concept ladder is finished: (1) add a row to the **Completed concepts**
+  table here, and (2) write its distilled notes page in `docs/src/concepts/`,
+  register it in `docs/src/SUMMARY.md`, and tick its row in `docs/src/intro.md`
+  (use `docs/src/meta/template.md`). The site auto-deploys on push to `master`.
 - For pure deep teaching (not practice), defer to the `/rustacean` skill.
