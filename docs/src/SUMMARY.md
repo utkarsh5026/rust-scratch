@@ -15,6 +15,7 @@
 - [Borrow / ToOwned](concepts/borrow-toowned.md)
 - [Drop & Ordering](concepts/drop-ordering.md)
 - [Lifetimes in depth](concepts/lifetimes-depth.md)
+- [HRTB — for<'a>](concepts/hrtb.md)
 - [Rc / Arc](concepts/rc-arc.md)
 - [Rc<RefCell<T>> patterns](concepts/rc-refcell.md)
 

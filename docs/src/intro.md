@@ -35,6 +35,7 @@ Each concept page follows the same shape:
 | `Rc<RefCell<T>>` patterns | [✅ note](concepts/rc-refcell.md) | `src/bin/rc_refcell.rs` |
 | Conversion traits | [✅ note](concepts/conversions.md) | `src/bin/conversions.rs` |
 | Lifetimes in depth | [✅ note](concepts/lifetimes-depth.md) | `src/bin/lifetimes_depth.rs` |
+| HRTB — `for<'a>` | [✅ note](concepts/hrtb.md) | `src/bin/hrtb.rs` |
 | `Borrow` / `ToOwned` | [✅ note](concepts/borrow-toowned.md) | `src/bin/borrow_toowned.rs` |
 | `Drop` & ordering | [✅ note](concepts/drop-ordering.md) | `src/bin/drop_ordering.rs` |
 
