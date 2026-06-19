@@ -28,13 +28,14 @@ Each concept page follows the same shape:
 
 | Concept | Note | Source ladder |
 |---|---|---|
-| `Cow` | _todo_ | `src/bin/cow.rs` |
+| `Cow` | [✅ note](concepts/cow.md) | `src/bin/cow.rs` |
 | `Box` & the heap | _todo_ | `src/bin/box_heap.rs` |
 | `Rc` / `Arc` | _todo_ | `src/bin/rc_arc.rs` |
 | `Cell` / `RefCell` | _todo_ | `src/bin/cell_refcell.rs` |
 | Conversion traits | _todo_ | `src/bin/conversions.rs` |
 | Lifetimes in depth | _todo_ | `src/bin/lifetimes_depth.rs` |
 | `Borrow` / `ToOwned` | [✅ note](concepts/borrow-toowned.md) | `src/bin/borrow_toowned.rs` |
+| `Drop` & ordering | [✅ note](concepts/drop-ordering.md) | `src/bin/drop_ordering.rs` |
 
 New notes get added under **Concepts** as each ladder is finished — see
 [Adding a new note](meta/adding-a-note.md).

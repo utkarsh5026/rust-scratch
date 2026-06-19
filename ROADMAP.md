@@ -70,7 +70,7 @@ lives*, *who may touch it*, and *how values convert*.
 - [ ] **HRTB — `for<'a>`** — higher-ranked bounds, why closures over references need them
 - [ ] 🔥 **Variance & subtyping** — covariance/contravariance, `&T` vs `&mut T`, `PhantomData`
 - [ ] **The never type `!` & DSTs** — diverging functions, `!` coercion, `str`/`[T]`/`dyn` as unsized types
-- [ ] `**Drop` & ordering** — destructor order, drop flags, `ManuallyDrop`, `mem::forget`/`take`/`replace`
+- [x] `**Drop` & ordering** — destructor order, drop flags, `ManuallyDrop`, `mem::forget`/`take`/`replace` ✅ *(done — `src/bin/drop_ordering.rs`)*
 
 *Mastery check:* you can draw the memory layout of an `Rc<RefCell<Vec<T>>>`,
 explain every pointer, predict a variance-related compile error, and explain why

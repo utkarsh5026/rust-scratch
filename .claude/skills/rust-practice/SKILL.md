@@ -84,6 +84,11 @@ File layout convention:
      `todo!("your turn: ...")` (or a `// TODO`), plus its `check_N` asserting the
      success criterion. Keep that `check_N()` call uncommented so it runs; keep
      not-yet-started problems' calls commented out.
+   - **If the rung involves `unsafe`** (capstones like `MyRc`/`MyRefCell`/`MyBox`,
+     or any rung that drops to raw pointers / `UnsafeCell`): scaffold every
+     `unsafe` block with a `// SAFETY:` comment slot the user must fill in, e.g.
+     `// SAFETY: <your turn: which invariant makes this sound?>`. The SAFETY line
+     is part of the exercise — leave it as a prompt, don't pre-write the answer.
    - It should compile-and-run to a clear failure (the `todo!` panic, or a
      deliberate compile error that *is* the lesson), never a working solution.
    - Confirm by running `cargo run --bin <concept>` so they see the starting state.
@@ -118,6 +123,16 @@ File layout convention:
 - Prefer making the *concept's pain* visible (a borrow error, a lifetime
   mismatch) over smoothing it away — that's where the learning is.
 - If the user asks to be taught rather than to practice, defer to `/rustacean`.
+- **Treat `unsafe` as a window, not the subject (until Phase 8).** When a Phase
+  1–7 rung uses `unsafe`, the lesson is *what invariant the safe abstraction
+  upholds*, not unsafe mechanics. Keep the user at "follow the recipe + state why
+  each line is sound" (L1); don't spiral into UB theory, Stacked Borrows, or
+  variance — note those and defer them to the Phase 8 unsafe ladder. Every
+  `unsafe` block must carry a `// SAFETY:` comment naming the invariant it relies
+  on; require the user to write it before the rung counts as done — articulating
+  the contract *is* the lesson, and it builds the muscle they'll need to audit
+  unsafe for real later. Nudge them toward `cargo miri` on unsafe rungs (it feeds
+  the `miri_clean` progress flag).
 
 ## Progress tracking (gamification)
 
@@ -142,3 +157,10 @@ Edit the JSON directly (read it, add the event, write it back). After the final
 (capstone) rung of a concept, add a row to the **Completed concepts** table in
 `CLAUDE.md`, and mention they can run `/stats` to see their updated rank. When a
 new event tips them into a new rank or completes a phase, call it out.
+
+## When a ladder is finished
+
+After the capstone rung passes and the concept is fully complete, run
+`/document @src/bin/<concept>.rs` to generate (or update) the distilled notes
+page in `docs/src/concepts/`. This writes the doc, wires it into `SUMMARY.md`
+and `intro.md`, and keeps the knowledge base in sync automatically.

@@ -1,0 +1,178 @@
+/* ------------------------------------------------------------------ *
+ *  rust-scratch knowledge base — readability + Cascadia Code           *
+ * ------------------------------------------------------------------ */
+
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/cascadia-code/index.css');
+
+:root {
+  --mono: "Cascadia Code", "Cascadia Mono", "JetBrains Mono", "Fira Code",
+          ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* ---- All code uses Cascadia Code ---- */
+code, pre, pre code, kbd, .hljs {
+  font-family: var(--mono) !important;
+  font-variant-ligatures: contextual;
+}
+
+/* ============ Hide code-block chrome (copy, play, eye) ============ */
+
+.clip-button,
+.play-button,
+.buttons {
+  display: none !important;
+}
+
+/* Hide the "boring" hidden-line scaffolding entirely */
+pre.playground .boring {
+  display: none !important;
+}
+
+/* ======================== Readability ============================= */
+
+.content main {
+  max-width: 78ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content {
+  font-size: 1.02rem;
+  line-height: 1.78;
+}
+
+.content p, .content li {
+  line-height: 1.78;
+}
+
+.content p {
+  margin: 0.95rem 0;
+}
+
+.content li + li {
+  margin-top: 0.3rem;
+}
+
+/* Heading hierarchy with breathing room */
+.content h1, .content h2, .content h3 {
+  line-height: 1.3;
+  margin-top: 2.3rem;
+  margin-bottom: 0.85rem;
+}
+
+.content h2 {
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--table-border-color);
+}
+
+/* ---- Code blocks ---- */
+.content pre {
+  padding: 1.4rem 1.6rem;
+  border-radius: 8px;
+  line-height: 1.6;
+  font-size: 0.9rem;
+  overflow: auto;
+  margin: 1.3rem 0;
+}
+
+.content pre > code,
+.content pre > .hljs {
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+}
+
+/* Inline code — subtle chip */
+.content code {
+  font-size: 0.9em;
+  padding: 0.15em 0.38em;
+  border-radius: 5px;
+}
+
+/* ---- Tables ---- */
+.content table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+}
+
+.content td, .content th {
+  padding: 0.5rem 0.8rem;
+  line-height: 1.55;
+}
+
+/* ---- Blockquotes as callouts ---- */
+.content blockquote {
+  border-inline-start: 4px solid var(--quote-border);
+  background: var(--quote-bg);
+  padding: 0.6rem 1rem;
+  border-radius: 0 6px 6px 0;
+  margin: 1.1rem 0;
+}
+
+/* ====================== Theme refinements ======================== */
+
+/* --- Navy (default dark) --- */
+.navy .content {
+  color: #cdd0e3;
+}
+.navy .content pre {
+  background-color: #11141d;
+}
+.navy .content code {
+  background-color: rgba(150, 160, 215, 0.12);
+  color: #dadcec;
+}
+
+/* --- Coal (deep dark) --- */
+.coal .content {
+  color: #c7cbd1;
+}
+.coal .content pre {
+  background-color: #101214;
+}
+.coal .content code {
+  background-color: rgba(150, 160, 180, 0.14);
+  color: #d0d4da;
+}
+
+/* --- Ayu (warm dark) --- */
+.ayu .content {
+  color: #d0c8b8;
+}
+.ayu .content pre {
+  background-color: #0b0f14;
+}
+.ayu .content code {
+  background-color: rgba(180, 150, 100, 0.13);
+  color: #e0d0b0;
+}
+.ayu .content a {
+  color: #59b8e8;
+}
+
+/* --- Light --- */
+.light .content {
+  color: #2e2e2e;
+}
+.light .content pre {
+  background-color: #f5f6f8;
+  border: 1px solid #e4e6ea;
+}
+.light .content code {
+  background-color: #edf0f4;
+  color: #3a3a3a;
+}
+
+/* --- Rust (warm sepia) --- */
+.rust .content {
+  color: #36332e;
+}
+.rust .content pre {
+  background-color: #d8d4ca;
+  border: 1px solid #c8c2b4;
+}
+.rust .content code {
+  background-color: #d6d0c4;
+  color: #4a453c;
+}

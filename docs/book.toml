@@ -12,6 +12,7 @@ git-repository-url = "https://github.com/utkarsh5026/rust-scratch"
 edit-url-template = "https://github.com/utkarsh5026/rust-scratch/edit/master/docs/{path}"
 site-url = "/rust-scratch/"
 no-section-label = false
+additional-css = ["theme/custom.css"]
 
 [output.html.fold]
 enable = true
@@ -23,3 +24,6 @@ limit-results = 20
 
 [output.html.playground]
 editable = false
+runnable = false
+copyable = false
+copy-js = false
