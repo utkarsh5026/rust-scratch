@@ -29,12 +29,12 @@ Each concept page follows the same shape:
 | Concept | Note | Source ladder |
 |---|---|---|
 | `Cow` | [✅ note](concepts/cow.md) | `src/bin/cow.rs` |
-| `Box` & the heap | _todo_ | `src/bin/box_heap.rs` |
-| `Rc` / `Arc` | _todo_ | `src/bin/rc_arc.rs` |
-| `Cell` / `RefCell` | _todo_ | `src/bin/cell_refcell.rs` |
+| `Box` & the heap | [✅ note](concepts/box-heap.md) | `src/bin/box_heap.rs` |
+| `Rc` / `Arc` | [✅ note](concepts/rc-arc.md) | `src/bin/rc_arc.rs` |
+| `Cell` / `RefCell` | [✅ note](concepts/cell-refcell.md) | `src/bin/cell_refcell.rs` |
 | `Rc<RefCell<T>>` patterns | [✅ note](concepts/rc-refcell.md) | `src/bin/rc_refcell.rs` |
-| Conversion traits | _todo_ | `src/bin/conversions.rs` |
-| Lifetimes in depth | _todo_ | `src/bin/lifetimes_depth.rs` |
+| Conversion traits | [✅ note](concepts/conversions.md) | `src/bin/conversions.rs` |
+| Lifetimes in depth | [✅ note](concepts/lifetimes-depth.md) | `src/bin/lifetimes_depth.rs` |
 | `Borrow` / `ToOwned` | [✅ note](concepts/borrow-toowned.md) | `src/bin/borrow_toowned.rs` |
 | `Drop` & ordering | [✅ note](concepts/drop-ordering.md) | `src/bin/drop_ordering.rs` |
 
