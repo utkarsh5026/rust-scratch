@@ -23,6 +23,10 @@
 
 - [Associated types vs generic params](concepts/assoc-vs-generic.md)
 
+## Phase 3 — API & error design
+
+- [Error handling architecture](concepts/error-arch.md)
+
 ---
 
 # Meta
