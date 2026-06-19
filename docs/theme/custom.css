@@ -37,7 +37,7 @@ pre.playground .boring {
 }
 
 .content {
-  font-size: 1.02rem;
+  font-size: 1.5rem;
   line-height: 1.78;
 }
 
@@ -70,7 +70,7 @@ pre.playground .boring {
   padding: 1.4rem 1.6rem;
   border-radius: 8px;
   line-height: 1.6;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   overflow: auto;
   margin: 1.3rem 0;
 }
@@ -84,7 +84,7 @@ pre.playground .boring {
 
 /* Inline code — subtle chip */
 .content code {
-  font-size: 0.9em;
+  font-size: 1.05em;
   padding: 0.15em 0.38em;
   border-radius: 5px;
 }
