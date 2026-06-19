@@ -19,6 +19,10 @@
 - [Rc / Arc](concepts/rc-arc.md)
 - [Rc<RefCell<T>> patterns](concepts/rc-refcell.md)
 
+## Phase 2 — Traits & generics like a library author
+
+- [Associated types vs generic params](concepts/assoc-vs-generic.md)
+
 ---
 
 # Meta

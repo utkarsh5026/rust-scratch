@@ -67,7 +67,7 @@ lives*, *who may touch it*, and *how values convert*.
 - [x] 🔥 **Conversion traits** — `From`/`Into`, `TryFrom`/`TryInto`, `AsRef`/`AsMut` ✅ *(done — `src/bin/conversions.rs`)*
 - [x] `**Borrow` / `ToOwned`** — the traits `Cow` and `HashMap` keys are built on (closes the `Cow` loop) ✅ *(done — `src/bin/borrow_toowned.rs`)*
 - [x] 🔥 **Lifetimes in depth** — elision rules, `'a: 'b` bounds, lifetimes in structs & impls ✅ *(done — `src/bin/lifetimes_depth.rs`)*
-- [ ] **HRTB — `for<'a>`** — higher-ranked bounds, why closures over references need them
+- [x] **HRTB — `for<'a>`** — higher-ranked bounds, why closures over references need them ✅ *(done — `src/bin/hrtb.rs`)*
 - [ ] 🔥 **Variance & subtyping** — covariance/contravariance, `&T` vs `&mut T`, `PhantomData`
 - [ ] **The never type `!` & DSTs** — diverging functions, `!` coercion, `str`/`[T]`/`dyn` as unsized types
 - [x] `**Drop` & ordering** — destructor order, drop flags, `ManuallyDrop`, `mem::forget`/`take`/`replace` ✅ *(done — `src/bin/drop_ordering.rs`)*
@@ -85,7 +85,7 @@ Design abstractions, not just consume them. The single biggest intermediate→ad
 
 - [ ] 🔥 **Trait objects & object safety** — `dyn Trait`, vtables, what makes a trait object-safe
 - [ ] 🔥 **Static vs dynamic dispatch** — monomorphization, code size, when each wins
-- [ ] **Associated types vs generic params** — `Iterator::Item` style design choices
+- [x] **Associated types vs generic params** — `Iterator::Item` style design choices ✅ *(done — `src/bin/assoc_vs_generic.rs`)*
 - [ ] **Generic bounds & `where` clauses** — multiple bounds, conditional impls, `T: ?Sized`
 - [ ] 🔥 **Blanket impls & coherence** — the orphan rule, why it exists, newtype workarounds
 - [ ] **Sealed traits** — restricting who can implement your trait, and why
