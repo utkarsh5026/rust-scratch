@@ -22,6 +22,7 @@
 ## Phase 2 — Traits & generics like a library author
 
 - [Associated types vs generic params](concepts/assoc-vs-generic.md)
+- [Blanket impls & coherence](concepts/blanket-coherence.md)
 
 ## Phase 3 — API & error design
 

@@ -87,7 +87,7 @@ Design abstractions, not just consume them. The single biggest intermediate→ad
 - [ ] 🔥 **Static vs dynamic dispatch** — monomorphization, code size, when each wins
 - [x] **Associated types vs generic params** — `Iterator::Item` style design choices ✅ *(done — `src/bin/assoc_vs_generic.rs`)*
 - [ ] **Generic bounds & `where` clauses** — multiple bounds, conditional impls, `T: ?Sized`
-- [ ] 🔥 **Blanket impls & coherence** — the orphan rule, why it exists, newtype workarounds
+- [x] 🔥 **Blanket impls & coherence** — the orphan rule, why it exists, newtype workarounds ✅ *(done — `src/bin/blanket_coherence.rs`)*
 - [ ] **Sealed traits** — restricting who can implement your trait, and why
 - [ ] **Marker & auto traits** — `Send`, `Sync`, `Sized`, `Copy`; `?Sized`; negative reasoning
 - [ ] **Operator overloading & `Deref`** — `Add`, `Index`, deref coercion, `Deref` abuse
@@ -107,7 +107,7 @@ split, explain object safety from the vtable up, and write a sealed trait.
 
 Write code other people can use without reading the source.
 
-- [ ] 🔥 **Error handling architecture** — `thiserror` (libs) vs `anyhow` (apps), `?`, conversion
+- [x] 🔥 **Error handling architecture** — `thiserror` (libs) vs `anyhow` (apps), `?`, conversion
 - [ ] **Custom error types** — `std::error::Error`, source chains, backtraces, `Box<dyn Error>`
 - [ ] 🔥 **The typestate pattern** — encode state machines in types; invalid states = compile errors
 - [ ] **Builder pattern** — ergonomic construction, `#[must_use]`, consuming vs mutating builders
