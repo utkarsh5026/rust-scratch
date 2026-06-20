@@ -30,6 +30,7 @@
 
 - [Error handling architecture](concepts/error-arch.md)
 - [Custom error types](concepts/custom-errors.md)
+- [Builder pattern](concepts/builder.md)
 
 ---
 
