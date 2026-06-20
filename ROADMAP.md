@@ -84,7 +84,7 @@ explain every pointer, predict a variance-related compile error, and explain why
 Design abstractions, not just consume them. The single biggest intermediate→advanced gap.
 
 - [ ] 🔥 **Trait objects & object safety** — `dyn Trait`, vtables, what makes a trait object-safe
-- [ ] 🔥 **Static vs dynamic dispatch** — monomorphization, code size, when each wins
+- [x] 🔥 **Static vs dynamic dispatch** — monomorphization, code size, when each wins ✅ *(done — `src/bin/dispatch.rs`)*
 - [x] **Associated types vs generic params** — `Iterator::Item` style design choices ✅ *(done — `src/bin/assoc_vs_generic.rs`)*
 - [ ] **Generic bounds & `where` clauses** — multiple bounds, conditional impls, `T: ?Sized`
 - [x] 🔥 **Blanket impls & coherence** — the orphan rule, why it exists, newtype workarounds ✅ *(done — `src/bin/blanket_coherence.rs`)*

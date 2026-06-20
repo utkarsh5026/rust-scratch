@@ -23,6 +23,7 @@
 
 - [Associated types vs generic params](concepts/assoc-vs-generic.md)
 - [Blanket impls & coherence](concepts/blanket-coherence.md)
+- [Static vs dynamic dispatch](concepts/dispatch.md)
 
 ## Phase 3 — API & error design
 
