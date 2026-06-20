@@ -2,7 +2,7 @@
 # Most days you just want `make run BIN=<concept>` or `make stats`.
 
 .DEFAULT_GOAL := help
-.PHONY: help run stats list fmt fmt-check clippy build check miri ci
+.PHONY: help run stats list fmt fmt-check clippy build check miri ci docs docs-build
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -36,5 +36,11 @@ check: ## Fast type-check without producing binaries
 miri: ## Run a bin under Miri: make miri BIN=box_heap [LEAK=1]
 	@test -n "$(BIN)" || { echo "usage: make miri BIN=<concept> [LEAK=1]"; exit 1; }
 	scripts/miri $(if $(LEAK),--ignore-leaks) $(BIN)
+
+docs: ## Serve the mdBook knowledge base with live reload + open browser
+	mdbook serve docs --open
+
+docs-build: ## Build the mdBook site once into docs/book
+	mdbook build docs
 
 ci: fmt-check clippy build ## Run the full CI suite locally
