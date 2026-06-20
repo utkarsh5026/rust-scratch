@@ -29,6 +29,7 @@
 ## Phase 3 — API & error design
 
 - [Error handling architecture](concepts/error-arch.md)
+- [Custom error types](concepts/custom-errors.md)
 
 ---
 

@@ -86,7 +86,7 @@ Design abstractions, not just consume them. The single biggest intermediate→ad
 - [ ] 🔥 **Trait objects & object safety** — `dyn Trait`, vtables, what makes a trait object-safe
 - [x] 🔥 **Static vs dynamic dispatch** — monomorphization, code size, when each wins ✅ *(done — `src/bin/dispatch.rs`)*
 - [x] **Associated types vs generic params** — `Iterator::Item` style design choices ✅ *(done — `src/bin/assoc_vs_generic.rs`)*
-- [ ] **Generic bounds & `where` clauses** — multiple bounds, conditional impls, `T: ?Sized`
+- [x] **Generic bounds & `where` clauses** — multiple bounds, conditional impls, `T: ?Sized` ✅ *(done — `src/bin/generic_bounds.rs`)*
 - [x] 🔥 **Blanket impls & coherence** — the orphan rule, why it exists, newtype workarounds ✅ *(done — `src/bin/blanket_coherence.rs`)*
 - [ ] **Sealed traits** — restricting who can implement your trait, and why
 - [ ] **Marker & auto traits** — `Send`, `Sync`, `Sized`, `Copy`; `?Sized`; negative reasoning
@@ -108,7 +108,7 @@ split, explain object safety from the vtable up, and write a sealed trait.
 Write code other people can use without reading the source.
 
 - [x] 🔥 **Error handling architecture** — `thiserror` (libs) vs `anyhow` (apps), `?`, conversion
-- [ ] **Custom error types** — `std::error::Error`, source chains, backtraces, `Box<dyn Error>`
+- [x] **Custom error types** — `std::error::Error`, source chains, backtraces, `Box<dyn Error>`
 - [ ] 🔥 **The typestate pattern** — encode state machines in types; invalid states = compile errors
 - [ ] **Builder pattern** — ergonomic construction, `#[must_use]`, consuming vs mutating builders
 - [ ] **Newtype & zero-cost wrappers** — type safety with no runtime cost; the `Deref` tradeoff

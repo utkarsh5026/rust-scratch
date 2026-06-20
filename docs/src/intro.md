@@ -43,6 +43,7 @@ Each concept page follows the same shape:
 | Blanket impls & coherence | [✅ note](concepts/blanket-coherence.md) | `src/bin/blanket_coherence.rs` |
 | Static vs dynamic dispatch | [✅ note](concepts/dispatch.md) | `src/bin/dispatch.rs` |
 | Error handling architecture | [✅ note](concepts/error-arch.md) | `src/bin/error_arch.rs` |
+| Custom error types | [✅ note](concepts/custom-errors.md) | `src/bin/custom_errors.rs` |
 
 New notes get added under **Concepts** as each ladder is finished — see
 [Adding a new note](meta/adding-a-note.md).
