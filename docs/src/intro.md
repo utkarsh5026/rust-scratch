@@ -39,6 +39,7 @@ Each concept page follows the same shape:
 | `Borrow` / `ToOwned` | [✅ note](concepts/borrow-toowned.md) | `src/bin/borrow_toowned.rs` |
 | `Drop` & ordering | [✅ note](concepts/drop-ordering.md) | `src/bin/drop_ordering.rs` |
 | Associated types vs generic params | [✅ note](concepts/assoc-vs-generic.md) | `src/bin/assoc_vs_generic.rs` |
+| Generic bounds & `where` clauses | [✅ note](concepts/generic-bounds.md) | `src/bin/generic_bounds.rs` |
 | Blanket impls & coherence | [✅ note](concepts/blanket-coherence.md) | `src/bin/blanket_coherence.rs` |
 | Static vs dynamic dispatch | [✅ note](concepts/dispatch.md) | `src/bin/dispatch.rs` |
 | Error handling architecture | [✅ note](concepts/error-arch.md) | `src/bin/error_arch.rs` |

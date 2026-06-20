@@ -22,6 +22,7 @@
 ## Phase 2 — Traits & generics like a library author
 
 - [Associated types vs generic params](concepts/assoc-vs-generic.md)
+- [Generic bounds & where clauses](concepts/generic-bounds.md)
 - [Blanket impls & coherence](concepts/blanket-coherence.md)
 - [Static vs dynamic dispatch](concepts/dispatch.md)
 
