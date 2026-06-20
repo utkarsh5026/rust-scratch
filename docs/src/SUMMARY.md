@@ -31,6 +31,7 @@
 - [Error handling architecture](concepts/error-arch.md)
 - [Custom error types](concepts/custom-errors.md)
 - [Builder pattern](concepts/builder.md)
+- [The typestate pattern](concepts/typestate.md)
 - [Newtype & zero-cost wrappers](concepts/newtype.md)
 
 ---

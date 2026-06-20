@@ -109,7 +109,7 @@ Write code other people can use without reading the source.
 
 - [x] 🔥 **Error handling architecture** — `thiserror` (libs) vs `anyhow` (apps), `?`, conversion
 - [x] **Custom error types** — `std::error::Error`, source chains, backtraces, `Box<dyn Error>`
-- [ ] 🔥 **The typestate pattern** — encode state machines in types; invalid states = compile errors
+- [x] 🔥 **The typestate pattern** — encode state machines in types; invalid states = compile errors ✅ *(done — `src/bin/typestate.rs`)*
 - [x] **Builder pattern** — ergonomic construction, `#[must_use]`, consuming vs mutating builders
 - [x] **Newtype & zero-cost wrappers** — type safety with no runtime cost; the `Deref` tradeoff ✅ *(done — `src/bin/newtype.rs`)*
 - [ ] 🔥 **API evolution & semver** — what's breaking, sealed traits, `#[non_exhaustive]`, future-proofing
