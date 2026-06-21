@@ -51,6 +51,7 @@ Each concept page follows the same shape:
 | Threads & scoped threads | [✅ note](concepts/threads.md) | `src/bin/threads.rs` |
 | `Send` & `Sync` deeply | [✅ note](concepts/send-sync.md) | `src/bin/send_sync.rs` |
 | Collections deep-dive | [✅ note](concepts/collections.md) | `src/bin/collections.rs` |
+| Strings & text | [✅ note](concepts/strings-text.md) | `src/bin/strings_text.rs` |
 
 New notes get added under **Concepts** as each ladder is finished — see
 [Adding a new note](meta/adding-a-note.md).

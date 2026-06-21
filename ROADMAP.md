@@ -114,7 +114,7 @@ Write code other people can use without reading the source.
 - [x] **Newtype & zero-cost wrappers** — type safety with no runtime cost; the `Deref` tradeoff ✅ *(done — `src/bin/newtype.rs`)*
 - [x] 🔥 **API evolution & semver** — what's breaking, sealed traits, `#[non_exhaustive]`, future-proofing ✅ *(done — `src/bin/semver.rs`)*
 - [ ] 🔥 **Iterators end-to-end** — implementing `Iterator`, adapters, `IntoIterator`, laziness, `collect` magic
-- [ ] **Strings & text** — `str`/`String`/`OsStr`/`CStr`/`Path`, UTF-8 invariants, when each appears
+- [x] **Strings & text** — `str`/`String`/`OsStr`/`CStr`/`Path`, UTF-8 invariants, when each appears ✅ *(done — `src/bin/strings_text.rs`)*
 - [x] **Collections deep-dive** — `HashMap`/`BTreeMap`/`VecDeque`/`HashSet`, hashing, `Entry` API, choosing one ✅ *(done — `src/bin/collections.rs`)*
 
 *Mastery check:* you can build a typestate API where misuse won't compile, and

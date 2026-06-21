@@ -118,6 +118,7 @@ Say **"what's next"** to pull the next unchecked item and start its ladder.
 | The typestate pattern | [`src/bin/typestate.rs`](./src/bin/typestate.rs) | 9 — ZST markers → sealed states → TCP-like protocol |
 | API evolution & semver | [`src/bin/semver.rs`](./src/bin/semver.rs) | 9 — what breaks → `#[non_exhaustive]` → sealed traits → `ApiChange→Bump` engine |
 | Collections deep-dive | [`src/bin/collections.rs`](./src/bin/collections.rs) | 9 — `Entry`/`Borrow` lookup → custom `Hash`/`Eq` → open-addressing `MyHashMap` |
+| Strings & text | [`src/bin/strings_text.rs`](./src/bin/strings_text.rs) | 9 — `str`/`String` & UTF-8 invariant → char-boundary slicing → `OsStr`/`Path`/`CStr` → `from_utf8` validation → hand-rolled UTF-8 decoder |
 
 **Phase 4 — Concurrency**
 

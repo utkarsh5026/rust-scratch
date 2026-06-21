@@ -35,6 +35,7 @@
 - [Newtype & zero-cost wrappers](concepts/newtype.md)
 - [API evolution & semver](concepts/semver.md)
 - [Collections deep-dive](concepts/collections.md)
+- [Strings & text](concepts/strings-text.md)
 
 ## Phase 4 — Concurrency
 

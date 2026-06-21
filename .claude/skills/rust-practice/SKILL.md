@@ -160,7 +160,15 @@ new event tips them into a new rank or completes a phase, call it out.
 
 ## When a ladder is finished
 
-After the capstone rung passes and the concept is fully complete, run
-`/document @src/bin/<concept>.rs` to generate (or update) the distilled notes
-page in `docs/src/concepts/`. This writes the doc, wires it into `SUMMARY.md`
-and `intro.md`, and keeps the knowledge base in sync automatically.
+After the capstone rung passes and the concept is fully complete:
+
+1. Add a row to the **Completed concepts** table in `CLAUDE.md`.
+2. Add a row to the **Completed concepts** table in `README.md` (the terser,
+   phase-grouped view — keep its one-line rung summary short; link the file).
+3. Tick the concept's checkbox in `ROADMAP.md`.
+4. Run `/document @src/bin/<concept>.rs` to generate (or update) the distilled
+   notes page in `docs/src/concepts/`. This writes the doc, wires it into
+   `SUMMARY.md` and `intro.md`, and keeps the knowledge base in sync.
+
+Steps 1-3 are quick table/checkbox edits; step 4 does the docs site. Do all four
+so `CLAUDE.md`, `README.md`, `ROADMAP.md`, and the published site never drift.
