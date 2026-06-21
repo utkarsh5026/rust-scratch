@@ -34,6 +34,10 @@
 - [The typestate pattern](concepts/typestate.md)
 - [Newtype & zero-cost wrappers](concepts/newtype.md)
 
+## Phase 4 — Concurrency
+
+- [Threads & scoped threads](concepts/threads.md)
+
 ---
 
 # Meta
