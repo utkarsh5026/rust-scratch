@@ -113,7 +113,7 @@ Write code other people can use without reading the source.
 - [x] **Builder pattern** — ergonomic construction, `#[must_use]`, consuming vs mutating builders
 - [x] **Newtype & zero-cost wrappers** — type safety with no runtime cost; the `Deref` tradeoff ✅ *(done — `src/bin/newtype.rs`)*
 - [x] 🔥 **API evolution & semver** — what's breaking, sealed traits, `#[non_exhaustive]`, future-proofing ✅ *(done — `src/bin/semver.rs`)*
-- [ ] 🔥 **Iterators end-to-end** — implementing `Iterator`, adapters, `IntoIterator`, laziness, `collect` magic
+- [x] 🔥 **Iterators end-to-end** — implementing `Iterator`, adapters, `IntoIterator`, laziness, `collect` magic ✅ *(done — `src/bin/iterators.rs`)*
 - [x] **Strings & text** — `str`/`String`/`OsStr`/`CStr`/`Path`, UTF-8 invariants, when each appears ✅ *(done — `src/bin/strings_text.rs`)*
 - [x] **Collections deep-dive** — `HashMap`/`BTreeMap`/`VecDeque`/`HashSet`, hashing, `Entry` API, choosing one ✅ *(done — `src/bin/collections.rs`)*
 

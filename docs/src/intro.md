@@ -52,6 +52,7 @@ Each concept page follows the same shape:
 | `Send` & `Sync` deeply | [✅ note](concepts/send-sync.md) | `src/bin/send_sync.rs` |
 | Collections deep-dive | [✅ note](concepts/collections.md) | `src/bin/collections.rs` |
 | Strings & text | [✅ note](concepts/strings-text.md) | `src/bin/strings_text.rs` |
+| Iterators end-to-end | [✅ note](concepts/iterators.md) | `src/bin/iterators.rs` |
 
 New notes get added under **Concepts** as each ladder is finished — see
 [Adding a new note](meta/adding-a-note.md).

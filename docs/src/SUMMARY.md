@@ -36,6 +36,7 @@
 - [API evolution & semver](concepts/semver.md)
 - [Collections deep-dive](concepts/collections.md)
 - [Strings & text](concepts/strings-text.md)
+- [Iterators end-to-end](concepts/iterators.md)
 
 ## Phase 4 — Concurrency
 
