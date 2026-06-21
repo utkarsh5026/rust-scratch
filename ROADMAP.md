@@ -112,7 +112,7 @@ Write code other people can use without reading the source.
 - [x] 🔥 **The typestate pattern** — encode state machines in types; invalid states = compile errors ✅ *(done — `src/bin/typestate.rs`)*
 - [x] **Builder pattern** — ergonomic construction, `#[must_use]`, consuming vs mutating builders
 - [x] **Newtype & zero-cost wrappers** — type safety with no runtime cost; the `Deref` tradeoff ✅ *(done — `src/bin/newtype.rs`)*
-- [ ] 🔥 **API evolution & semver** — what's breaking, sealed traits, `#[non_exhaustive]`, future-proofing
+- [x] 🔥 **API evolution & semver** — what's breaking, sealed traits, `#[non_exhaustive]`, future-proofing ✅ *(done — `src/bin/semver.rs`)*
 - [ ] 🔥 **Iterators end-to-end** — implementing `Iterator`, adapters, `IntoIterator`, laziness, `collect` magic
 - [ ] **Strings & text** — `str`/`String`/`OsStr`/`CStr`/`Path`, UTF-8 invariants, when each appears
 - [x] **Collections deep-dive** — `HashMap`/`BTreeMap`/`VecDeque`/`HashSet`, hashing, `Entry` API, choosing one ✅ *(done — `src/bin/collections.rs`)*

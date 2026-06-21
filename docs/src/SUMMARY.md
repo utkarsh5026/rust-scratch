@@ -33,6 +33,7 @@
 - [Builder pattern](concepts/builder.md)
 - [The typestate pattern](concepts/typestate.md)
 - [Newtype & zero-cost wrappers](concepts/newtype.md)
+- [API evolution & semver](concepts/semver.md)
 - [Collections deep-dive](concepts/collections.md)
 
 ## Phase 4 — Concurrency

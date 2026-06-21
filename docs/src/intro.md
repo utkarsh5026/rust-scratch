@@ -47,6 +47,7 @@ Each concept page follows the same shape:
 | Builder pattern | [✅ note](concepts/builder.md) | `src/bin/builder.rs` |
 | The typestate pattern | [✅ note](concepts/typestate.md) | `src/bin/typestate.rs` |
 | Newtype & zero-cost wrappers | [✅ note](concepts/newtype.md) | `src/bin/newtype.rs` |
+| API evolution & semver | [✅ note](concepts/semver.md) | `src/bin/semver.rs` |
 | Threads & scoped threads | [✅ note](concepts/threads.md) | `src/bin/threads.rs` |
 | `Send` & `Sync` deeply | [✅ note](concepts/send-sync.md) | `src/bin/send_sync.rs` |
 | Collections deep-dive | [✅ note](concepts/collections.md) | `src/bin/collections.rs` |

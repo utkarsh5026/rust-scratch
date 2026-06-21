@@ -83,9 +83,48 @@ Say **"what's next"** to pull the next unchecked item and start its ladder.
 
 ## Completed concepts
 
+**Phase 1 — Ownership, conversions & the type system**
+
 | Concept | File | Rungs |
 |---------|------|-------|
 | `Cow` (Clone-on-Write) | [`src/bin/cow.rs`](./src/bin/cow.rs) | 9 — basics → serde zero-copy → reimplement from scratch |
+| `Box` & the heap | [`src/bin/box_heap.rs`](./src/bin/box_heap.rs) | 9 — recursive types → `dyn Trait`/`Box::leak` → hand-rolled linked list |
+| `Rc` / `Arc` | [`src/bin/rc_arc.rs`](./src/bin/rc_arc.rs) | 9 — shared ownership → cycles & `Weak` → `Arc<Mutex>` → hand-rolled `MyRc` |
+| `Cell` / `RefCell` | [`src/bin/cell_refcell.rs`](./src/bin/cell_refcell.rs) | 9 — interior mutability → borrow panics → hand-rolled `MyRefCell` |
+| Conversion traits | [`src/bin/conversions.rs`](./src/bin/conversions.rs) | 9 — `From`/`Into` → `TryFrom` → `AsRef` → mini `serde_json::Value` |
+| Lifetimes in depth | [`src/bin/lifetimes_depth.rs`](./src/bin/lifetimes_depth.rs) | 9 — elision → structs → outlives bounds → hand-rolled `StrSplit` |
+| `Borrow` / `ToOwned` | [`src/bin/borrow_toowned.rs`](./src/bin/borrow_toowned.rs) | 9 — `HashMap::get(&str)` → contracts → hand-rolled `MyCow` |
+| `Drop` & ordering | [`src/bin/drop_ordering.rs`](./src/bin/drop_ordering.rs) | 9 — LIFO/field order → drop flags → rollback-on-drop `Transaction` |
+| `Rc<RefCell<T>>` patterns | [`src/bin/rc_refcell.rs`](./src/bin/rc_refcell.rs) | 10 — shared cell → cycle leak + `Weak` → doubly-linked list w/ iterative Drop |
+| HRTB — `for<'a>` | [`src/bin/hrtb.rs`](./src/bin/hrtb.rs) | 9 — implicit `for<'a>` → `DecodeOwned` → parser-combinator capstone |
+
+**Phase 2 — Traits & generics like a library author**
+
+| Concept | File | Rungs |
+|---------|------|-------|
+| Generic bounds & `where` clauses | [`src/bin/generic_bounds.rs`](./src/bin/generic_bounds.rs) | 9 — bounds → `?Sized` → blanket impls → `IterExt` extension trait |
+| Associated types vs generic params | [`src/bin/assoc_vs_generic.rs`](./src/bin/assoc_vs_generic.rs) | 9 — one-impl-per-type vs many → `dyn` assoc pinning → `MyIterator` + `Map` |
+| Blanket impls & coherence | [`src/bin/blanket_coherence.rs`](./src/bin/blanket_coherence.rs) | 9 — `From`→`Into` → orphan rule → sealed extension trait |
+| Static vs dynamic dispatch | [`src/bin/dispatch.rs`](./src/bin/dispatch.rs) | 9 — monomorphization vs vtable → object safety → static/dynamic/enum pipeline |
+
+**Phase 3 — API & error design**
+
+| Concept | File | Rungs |
+|---------|------|-------|
+| Error handling architecture | [`src/bin/error_arch.rs`](./src/bin/error_arch.rs) | 9 — `Box<dyn Error>` → `thiserror`/`anyhow` → mini-anyhow |
+| Custom error types | [`src/bin/custom_errors.rs`](./src/bin/custom_errors.rs) | 9 — Display+Error by hand → source chains → `Report` reporter |
+| Newtype & zero-cost wrappers | [`src/bin/newtype.rs`](./src/bin/newtype.rs) | 9 — distinct identity → `repr(transparent)` → phantom-typed `Id<T>` |
+| Builder pattern | [`src/bin/builder.rs`](./src/bin/builder.rs) | 8 — consuming/`&mut` builders → typestate builder → `ServerConfig` |
+| The typestate pattern | [`src/bin/typestate.rs`](./src/bin/typestate.rs) | 9 — ZST markers → sealed states → TCP-like protocol |
+| API evolution & semver | [`src/bin/semver.rs`](./src/bin/semver.rs) | 9 — what breaks → `#[non_exhaustive]` → sealed traits → `ApiChange→Bump` engine |
+| Collections deep-dive | [`src/bin/collections.rs`](./src/bin/collections.rs) | 9 — `Entry`/`Borrow` lookup → custom `Hash`/`Eq` → open-addressing `MyHashMap` |
+
+**Phase 4 — Concurrency**
+
+| Concept | File | Rungs |
+|---------|------|-------|
+| Threads & scoped threads | [`src/bin/threads.rs`](./src/bin/threads.rs) | 9 — `spawn`/`join` → `thread::scope` → `parallel_map` (rayon-lite) |
+| `Send` & `Sync` deeply | [`src/bin/send_sync.rs`](./src/bin/send_sync.rs) | 9 — auto-derivation → the four quadrants → hand-rolled `SpinLock` |
 
 _(early standalone demos, not ladders: `src/bin/lifetimes.rs`, `src/bin/traits.rs`)_
 
