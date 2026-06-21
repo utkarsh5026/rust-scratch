@@ -48,6 +48,7 @@ Each concept page follows the same shape:
 | The typestate pattern | [✅ note](concepts/typestate.md) | `src/bin/typestate.rs` |
 | Newtype & zero-cost wrappers | [✅ note](concepts/newtype.md) | `src/bin/newtype.rs` |
 | Threads & scoped threads | [✅ note](concepts/threads.md) | `src/bin/threads.rs` |
+| `Send` & `Sync` deeply | [✅ note](concepts/send-sync.md) | `src/bin/send_sync.rs` |
 
 New notes get added under **Concepts** as each ladder is finished — see
 [Adding a new note](meta/adding-a-note.md).

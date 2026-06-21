@@ -128,7 +128,7 @@ classify a list of changes to a public API as breaking or not.
 Fearless concurrency, *understood* — not `Arc<Mutex<T>>` cargo-culting.
 
 - [x] **Threads & scoped threads** — `std::thread`, `thread::scope`, `JoinHandle`
-- [ ] 🔥 `**Send` & `Sync` deeply** — what they really guarantee, why `Rc` is `!Send`
+- [x] 🔥 `**Send` & `Sync` deeply** — what they really guarantee, why `Rc` is `!Send`
 - [ ] `**Mutex` / `RwLock`** — poisoning, lock guards, deadlock avoidance, lock ordering
 - [ ] **Channels** — `mpsc`, bounded vs unbounded, `crossbeam` channels, backpressure
 - [ ] 🔥 **Atomics & memory ordering** — `Relaxed`/`Acquire`/`Release`/`SeqCst`, happens-before

@@ -37,6 +37,7 @@
 ## Phase 4 — Concurrency
 
 - [Threads & scoped threads](concepts/threads.md)
+- [`Send` & `Sync` deeply](concepts/send-sync.md)
 
 ---
 
