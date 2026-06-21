@@ -115,7 +115,7 @@ Write code other people can use without reading the source.
 - [ ] 🔥 **API evolution & semver** — what's breaking, sealed traits, `#[non_exhaustive]`, future-proofing
 - [ ] 🔥 **Iterators end-to-end** — implementing `Iterator`, adapters, `IntoIterator`, laziness, `collect` magic
 - [ ] **Strings & text** — `str`/`String`/`OsStr`/`CStr`/`Path`, UTF-8 invariants, when each appears
-- [ ] **Collections deep-dive** — `HashMap`/`BTreeMap`/`VecDeque`/`HashSet`, hashing, `Entry` API, choosing one
+- [x] **Collections deep-dive** — `HashMap`/`BTreeMap`/`VecDeque`/`HashSet`, hashing, `Entry` API, choosing one ✅ *(done — `src/bin/collections.rs`)*
 
 *Mastery check:* you can build a typestate API where misuse won't compile, and
 classify a list of changes to a public API as breaking or not.
