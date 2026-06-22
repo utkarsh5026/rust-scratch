@@ -91,7 +91,7 @@ Design abstractions, not just consume them. The single biggest intermediate→ad
 - [ ] **Sealed traits** — restricting who can implement your trait, and why
 - [ ] **Marker & auto traits** — `Send`, `Sync`, `Sized`, `Copy`; `?Sized`; negative reasoning
 - [ ] **Operator overloading & `Deref`** — `Add`, `Index`, deref coercion, `Deref` abuse
-- [ ] 🔥 `**impl Trait` & RPIT** — `impl Trait` in args/returns, `async fn` desugaring
+- [x] 🔥 `**impl Trait` & RPIT** — `impl Trait` in args/returns, `async fn` desugaring ✅ *(done — `src/bin/impl_trait.rs`)*
 - [ ] **GATs (generic associated types)** — lending iterators, the patterns they unlock
 - [ ] **Const generics** — `[T; N]` generic over `N`, type-level numbers
 - [x] 🔥 **Closures & `Fn`/`FnMut`/`FnOnce`** — how closures capture, returning closures, fn pointers ✅ *(done — `src/bin/closures.rs`)*

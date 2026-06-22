@@ -2699,6 +2699,16 @@
       "hints": 0,
       "first_try": true,
       "miri_clean": false
+    },
+    {
+      "date": "2026-06-22",
+      "phase": 2,
+      "concept": "impl_trait",
+      "rung": 9,
+      "tier": "capstone",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
     }
   ]
 }
