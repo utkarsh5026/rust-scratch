@@ -127,6 +127,7 @@ Say **"what's next"** to pull the next unchecked item and start its ladder.
 |---------|------|-------|
 | Threads & scoped threads | [`src/bin/threads.rs`](./src/bin/threads.rs) | 9 — `spawn`/`join` → `thread::scope` → `parallel_map` (rayon-lite) |
 | `Send` & `Sync` deeply | [`src/bin/send_sync.rs`](./src/bin/send_sync.rs) | 9 — auto-derivation → the four quadrants → hand-rolled `SpinLock` |
+| `Mutex` / `RwLock` | [`src/bin/mutex_rwlock.rs`](./src/bin/mutex_rwlock.rs) | 9 — guard RAII → `Arc<Mutex>` counter → `RwLock` readers-xor-writer → poisoning & recovery → non-reentrancy → ABBA deadlock + lock ordering → `Condvar` queue → concurrent `Bank` |
 
 _(early standalone demos, not ladders: `src/bin/lifetimes.rs`, `src/bin/traits.rs`)_
 
