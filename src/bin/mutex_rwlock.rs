@@ -14,7 +14,7 @@
 //   6. [x] Non-reentrancy      — locking twice in one thread self-deadlocks (try_lock)  [footgun]
 //   7. [x] Lock-ordering ABBA  — induce a deadlock, fix with a canonical lock order     [footgun]
 //   8. [x] Mutex + Condvar     — bounded blocking queue (wait/notify)                   [real-world]
-//   9. [ ] Concurrent Bank     — deadlock-free transfers + poison recovery (capstone)   [capstone]
+//   9. [x] Concurrent Bank     — deadlock-free transfers + poison recovery (capstone)   [capstone]
 
 use std::collections::VecDeque;
 use std::sync::{Arc, Condvar, Mutex, MutexGuard, RwLock};
@@ -582,17 +582,32 @@ impl Bank {
         if from >= self.accounts.len() || to >= self.accounts.len() {
             return Err(TransferError::NoSuchAccount);
         }
-        let mut fg = Self::lock_recover(&self.accounts[from]);
-        let mut tg = Self::lock_recover(&self.accounts[to]);
-        if *fg < amt {
-            return Err(TransferError::InsufficientFunds {
-                have: *fg,
-                need: amt,
-            });
+
+        if from < to {
+            let mut fg = Self::lock_recover(&self.accounts[from]);
+            let mut tg = Self::lock_recover(&self.accounts[to]);
+            if *fg < amt {
+                return Err(TransferError::InsufficientFunds {
+                    have: *fg,
+                    need: amt,
+                });
+            }
+            *fg -= amt;
+            *tg += amt;
+            Ok(())
+        } else {
+            let mut tg = Self::lock_recover(&self.accounts[to]);
+            let mut fg = Self::lock_recover(&self.accounts[from]);
+            if *fg < amt {
+                return Err(TransferError::InsufficientFunds {
+                    have: *fg,
+                    need: amt,
+                });
+            }
+            *fg -= amt;
+            *tg += amt;
+            Ok(())
         }
-        *fg -= amt;
-        *tg += amt;
-        Ok(())
     }
 
     fn total(&self) -> i64 {
