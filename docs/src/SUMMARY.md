@@ -25,6 +25,7 @@
 - [Generic bounds & where clauses](concepts/generic-bounds.md)
 - [Blanket impls & coherence](concepts/blanket-coherence.md)
 - [Static vs dynamic dispatch](concepts/dispatch.md)
+- [Closures & Fn/FnMut/FnOnce](concepts/closures.md)
 
 ## Phase 3 — API & error design
 

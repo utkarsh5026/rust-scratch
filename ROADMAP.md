@@ -94,7 +94,7 @@ Design abstractions, not just consume them. The single biggest intermediate→ad
 - [ ] 🔥 `**impl Trait` & RPIT** — `impl Trait` in args/returns, `async fn` desugaring
 - [ ] **GATs (generic associated types)** — lending iterators, the patterns they unlock
 - [ ] **Const generics** — `[T; N]` generic over `N`, type-level numbers
-- [ ] 🔥 **Closures & `Fn`/`FnMut`/`FnOnce`** — how closures capture, returning closures, fn pointers
+- [x] 🔥 **Closures & `Fn`/`FnMut`/`FnOnce`** — how closures capture, returning closures, fn pointers ✅ *(done — `src/bin/closures.rs`)*
 - [ ] 🌙 **Specialization (nightly)** — what it is, why it's hard, how `min_specialization` is used
 
 *Mastery check:* you can design a trait with the right associated-type-vs-generic

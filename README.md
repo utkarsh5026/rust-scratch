@@ -106,6 +106,7 @@ Say **"what's next"** to pull the next unchecked item and start its ladder.
 | Associated types vs generic params | [`src/bin/assoc_vs_generic.rs`](./src/bin/assoc_vs_generic.rs) | 9 — one-impl-per-type vs many → `dyn` assoc pinning → `MyIterator` + `Map` |
 | Blanket impls & coherence | [`src/bin/blanket_coherence.rs`](./src/bin/blanket_coherence.rs) | 9 — `From`→`Into` → orphan rule → sealed extension trait |
 | Static vs dynamic dispatch | [`src/bin/dispatch.rs`](./src/bin/dispatch.rs) | 9 — monomorphization vs vtable → object safety → static/dynamic/enum pipeline |
+| Closures & `Fn`/`FnMut`/`FnOnce` | [`src/bin/closures.rs`](./src/bin/closures.rs) | 9 — capture modes → `Fn ⊂ FnMut ⊂ FnOnce` → desugar by hand → `impl Fn` vs `Box<dyn Fn>` → fn-pointer coercion → `Box<dyn FnMut>` event dispatcher |
 
 **Phase 3 — API & error design**
 

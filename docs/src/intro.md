@@ -42,6 +42,7 @@ Each concept page follows the same shape:
 | Generic bounds & `where` clauses | [✅ note](concepts/generic-bounds.md) | `src/bin/generic_bounds.rs` |
 | Blanket impls & coherence | [✅ note](concepts/blanket-coherence.md) | `src/bin/blanket_coherence.rs` |
 | Static vs dynamic dispatch | [✅ note](concepts/dispatch.md) | `src/bin/dispatch.rs` |
+| Closures & `Fn`/`FnMut`/`FnOnce` | [✅ note](concepts/closures.md) | `src/bin/closures.rs` |
 | Error handling architecture | [✅ note](concepts/error-arch.md) | `src/bin/error_arch.rs` |
 | Custom error types | [✅ note](concepts/custom-errors.md) | `src/bin/custom_errors.rs` |
 | Builder pattern | [✅ note](concepts/builder.md) | `src/bin/builder.rs` |

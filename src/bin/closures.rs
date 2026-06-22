@@ -17,8 +17,8 @@
 //   5. [x] footgun     — FnMut needs `mut`; FnOnce can only be called once
 //   6. [x] footgun     — returning closures: impl Fn vs Box<dyn Fn>
 //   7. [x] real-world  — fn pointers vs closures & coercion
-//   8. [ ] real-world  — closures with the stdlib + a closure factory
-//   9. [ ] capstone    — callback registry / event dispatcher
+//   8. [x] real-world  — closures with the stdlib + a closure factory
+//   9. [x] capstone    — callback registry / event dispatcher
 
 fn main() {
     check_1();
@@ -29,7 +29,7 @@ fn main() {
     check_6();
     check_7();
     check_8();
-    // check_9();
+    check_9();
     println!("all checks passed ✅");
 }
 
@@ -372,10 +372,13 @@ fn check_7() {
 //     across a `filter`, proving an Fn closure is freely re-callable.
 // ---------------------------------------------------------------------------
 fn top_squares(nums: &[i32], threshold: i32) -> Vec<i32> {
-    nums.iter()
+    let mut out: Vec<i32> = nums
+        .iter()
         .filter(|&x| *x > threshold)
         .map(|x| x * x)
-        .collect::<Vec<i32>>()
+        .collect();
+    out.sort_by(|a, b| b.cmp(a)); // b.cmp(a) => descending
+    out
 }
 
 fn make_validator(min: i32, max: i32) -> impl Fn(i32) -> bool {
@@ -398,4 +401,107 @@ fn check_8() {
     assert_eq!(rows, vec![("b", 1), ("c", 2), ("a", 3)]);
 
     println!("check_8 ✅ stdlib adapters take closures; factories return them");
+}
+
+// ---------------------------------------------------------------------------
+// Problem 9 — CAPSTONE: a callback registry / event dispatcher.
+//
+// Build the thing real event systems are made of: an object that holds a list of
+// subscriber callbacks and fans every event out to all of them. This is where
+// the whole ladder converges:
+//   - subscribers are CLOSURES with different types & captures -> store them as
+//     trait objects: `Box<dyn FnMut(&Event)>` (rung 6's Box<dyn Fn> pattern).
+//   - they're `FnMut`, not `Fn`, so a handler may keep INTERNAL mutable state.
+//     Calling an FnMut goes through `&mut self`, so `emit` takes `&mut self` and
+//     iterates `&mut self.subscribers` (rungs 3-5).
+//   - `subscribe` must accept ANY such closure -> generic `F: FnMut(&Event)`,
+//     plus `+ 'static` so the boxed handler can outlive the call (rung 6 again).
+//
+// The struct + field are given (the type IS the lesson — read it). Implement the
+// three method bodies:
+//   - `new`       -> an empty dispatcher
+//   - `subscribe` -> box `f` and push it onto `subscribers`
+//   - `emit`      -> call every subscriber with `event`
+// ---------------------------------------------------------------------------
+#[derive(Debug)]
+#[allow(dead_code)]
+enum Event {
+    Login { user: String },
+    Logout { user: String },
+    Message { text: String },
+}
+
+struct Dispatcher {
+    // A heterogeneous list of callbacks, type-erased behind a trait object.
+    // Box: each closure has a different size/type; dyn: dynamic dispatch;
+    // FnMut: a handler may mutate its own captured state on each call.
+    subscribers: Vec<Box<dyn FnMut(&Event)>>,
+}
+
+impl Dispatcher {
+    fn new() -> Self {
+        Self {
+            subscribers: Vec::new(),
+        }
+    }
+
+    fn subscribe<F: FnMut(&Event) + 'static>(&mut self, f: F) {
+        self.subscribers.push(Box::new(f));
+    }
+
+    fn emit(&mut self, event: &Event) {
+        for subscriber in self.subscribers.iter_mut() {
+            subscriber(event);
+        }
+    }
+}
+
+fn check_9() {
+    use std::cell::RefCell;
+    use std::rc::Rc;
+
+    // Shared observation points so the test can see what handlers did.
+    let login_count = Rc::new(RefCell::new(0));
+    let transcript = Rc::new(RefCell::new(Vec::<String>::new()));
+
+    let mut dispatcher = Dispatcher::new();
+
+    // Handler A: counts Login events. Mutates a captured local `seen` -> FnMut.
+    {
+        let lc = Rc::clone(&login_count);
+        let mut seen = 0; // captured by value & mutated => this closure is FnMut
+        dispatcher.subscribe(move |ev: &Event| {
+            if let Event::Login { .. } = ev {
+                seen += 1;
+                *lc.borrow_mut() = seen;
+            }
+        });
+    }
+
+    // Handler B: logs a one-line description of every event.
+    {
+        let t = Rc::clone(&transcript);
+        dispatcher.subscribe(move |ev: &Event| {
+            t.borrow_mut().push(format!("{ev:?}"));
+        });
+    }
+
+    dispatcher.emit(&Event::Login {
+        user: "alice".into(),
+    });
+    dispatcher.emit(&Event::Message { text: "hi".into() });
+    dispatcher.emit(&Event::Login { user: "bob".into() });
+    dispatcher.emit(&Event::Logout {
+        user: "alice".into(),
+    });
+
+    assert_eq!(*login_count.borrow(), 2, "two Login events seen");
+    assert_eq!(transcript.borrow().len(), 4, "every event logged once");
+    assert_eq!(
+        transcript.borrow()[1],
+        r#"Message { text: "hi" }"#,
+        "handler B logs each event's Debug form"
+    );
+
+    println!("check_9 ✅ CAPSTONE: Box<dyn FnMut> registry fans events to handlers");
 }
