@@ -1,2 +1,4 @@
 /target
+# nested cargo workspaces (e.g. practice/) build into their own target/ dirs
+target/
 /docs/book

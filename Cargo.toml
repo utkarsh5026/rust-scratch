@@ -3,6 +3,30 @@ name = "rust-scratch"
 version = "0.1.0"
 edition = "2024"
 
+[workspace]
+members = [
+    "practice/crates_workspaces/r1_pkg",
+    "practice/crates_workspaces/r2_libbin",
+]
+resolver = "3"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# These features exist ONLY for the `src/bin/features_cfg.rs` practice ladder
+# (Phase 0 — "Cargo features & cfg"). They gate demo code in that one bin; no
+# other bin reads them. Run e.g. `cargo run --bin features_cfg --features json,pretty`.
+# Safe to delete this whole block (and revert `rand` to non-optional below) if you
+# ever drop that ladder.
+[features]
+default  = ["metric"] # on unless you pass --no-default-features (rung 8: default features)
+demo     = []          # rung 3/4: gates feature_line() + the cfg_attr PartialEq on Point
+metric   = []          # rung 5: one half of the additive enabled_units() demo
+imperial = []          # rung 5: other half — enabling both must COMPOSE, not collide
+dice     = ["dep:rand"]# rung 7: optional-dependency-as-a-feature; pulls in the rand crate
+color    = []          # rung 8: a leaf feature, only used to show transitive enabling
+full     = ["color", "demo"] # rung 8: umbrella feature — turning it on enables color + demo
+json     = []          # rung 9 capstone: additive JSON output renderer
+pretty   = []          # rung 9 capstone: additive pretty output renderer
+
 [dependencies]
 # async
 tokio        = { version = "1", features = ["full"] }
@@ -21,6 +45,11 @@ serde_json   = "1"
 reqwest      = { version = "0.13", features = ["json"] }
 
 # utils
-rand         = "0.10"
+# `optional = true` (made optional for the features_cfg ladder, rung 7): rand is
+# NOT compiled unless the `dice` feature turns it on via `dep:rand`. No other bin
+# uses rand, so this is safe; revert to `rand = "0.10"` if you remove that ladder.
+rand         = { version = "0.10", optional = true }
 tracing      = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+

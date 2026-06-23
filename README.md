@@ -88,6 +88,7 @@ Say **"what's next"** to pull the next unchecked item and start its ladder.
 | Concept | File | Rungs |
 |---------|------|-------|
 | Modules & visibility | [`src/bin/modules.rs`](./src/bin/modules.rs) | 9 — module tree & paths → `pub` opens a door → field privacy + smart constructor → `use` vs `pub use` re-export → leaking a private type (E0603/E0616) → `pub(crate)`/`pub(super)`/`pub(in path)` → facade pattern → sealed trait via private module → `inventory` mini-library capstone |
+| Cargo features & `cfg` | [`src/bin/features_cfg.rs`](./src/bin/features_cfg.rs) | 9 — `cfg!()` macro → `#[cfg]` attribute (twin defs) → first feature flag → `cfg_attr` (serde idiom) → **additivity law** (collide vs accumulate) → missing-symbol trap (gate the call site too) → optional dep `dep:rand` → feature graphs (`default`/`full`/`--no-default-features`) → mini config/output module capstone |
 
 **Phase 1 — Ownership, conversions & the type system**
 

@@ -9,6 +9,7 @@
 ## Phase 0 — Tooling, project structure & testing
 
 - [Modules & visibility](concepts/modules.md)
+- [Cargo features & `cfg`](concepts/features-cfg.md)
 
 ## Phase 1 — Ownership, conversions & the type system
 
