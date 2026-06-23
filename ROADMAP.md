@@ -38,7 +38,7 @@ the middle (traits, async, unsafe) — that's where intermediate and advanced pa
 The unglamorous foundation that separates "writes Rust" from "ships Rust". Skip
 nothing here; it pays off in every later phase.
 
-- [ ] **Modules & visibility** — `mod`, `pub(crate)`/`pub(super)`, re-exports, the module tree
+- [x] **Modules & visibility** — `mod`, `pub(crate)`/`pub(super)`, re-exports, the module tree
 - [ ] **Crates & workspaces** — multi-crate workspaces, path/version deps, `[workspace]`
 - [ ] 🔥 **Cargo features & `cfg`** — feature flags, `#[cfg(...)]`, conditional compilation, additive features
 - [ ] 🔥 **Testing** — unit, integration (`tests/`), doctests, `#[should_panic]`, test organization

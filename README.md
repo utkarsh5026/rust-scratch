@@ -83,6 +83,12 @@ Say **"what's next"** to pull the next unchecked item and start its ladder.
 
 ## Completed concepts
 
+**Phase 0 — Tooling, project structure & testing**
+
+| Concept | File | Rungs |
+|---------|------|-------|
+| Modules & visibility | [`src/bin/modules.rs`](./src/bin/modules.rs) | 9 — module tree & paths → `pub` opens a door → field privacy + smart constructor → `use` vs `pub use` re-export → leaking a private type (E0603/E0616) → `pub(crate)`/`pub(super)`/`pub(in path)` → facade pattern → sealed trait via private module → `inventory` mini-library capstone |
+
 **Phase 1 — Ownership, conversions & the type system**
 
 | Concept | File | Rungs |

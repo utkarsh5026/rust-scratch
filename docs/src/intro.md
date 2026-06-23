@@ -28,6 +28,7 @@ Each concept page follows the same shape:
 
 | Concept | Note | Source ladder |
 |---|---|---|
+| Modules & visibility | [✅ note](concepts/modules.md) | `src/bin/modules.rs` |
 | `Cow` | [✅ note](concepts/cow.md) | `src/bin/cow.rs` |
 | `Box` & the heap | [✅ note](concepts/box-heap.md) | `src/bin/box_heap.rs` |
 | `Rc` / `Arc` | [✅ note](concepts/rc-arc.md) | `src/bin/rc_arc.rs` |

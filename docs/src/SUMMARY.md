@@ -6,6 +6,10 @@
 
 # Concepts
 
+## Phase 0 — Tooling, project structure & testing
+
+- [Modules & visibility](concepts/modules.md)
+
 ## Phase 1 — Ownership, conversions & the type system
 
 - [Cow — Clone-on-Write](concepts/cow.md)
