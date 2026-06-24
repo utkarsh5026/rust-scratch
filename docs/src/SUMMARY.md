@@ -50,6 +50,7 @@
 - [Threads & scoped threads](concepts/threads.md)
 - [`Send` & `Sync` deeply](concepts/send-sync.md)
 - [`Mutex` / `RwLock`](concepts/mutex-rwlock.md)
+- [Channels](concepts/channels.md)
 
 ---
 

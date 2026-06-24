@@ -51,5 +51,6 @@ reqwest      = { version = "0.13", features = ["json"] }
 rand         = { version = "0.10", optional = true }
 tracing      = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+crossbeam-channel = "0.5.15"
 
 

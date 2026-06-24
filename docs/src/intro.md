@@ -55,6 +55,7 @@ Each concept page follows the same shape:
 | Threads & scoped threads | [✅ note](concepts/threads.md) | `src/bin/threads.rs` |
 | `Send` & `Sync` deeply | [✅ note](concepts/send-sync.md) | `src/bin/send_sync.rs` |
 | `Mutex` / `RwLock` | [✅ note](concepts/mutex-rwlock.md) | `src/bin/mutex_rwlock.rs` |
+| Channels | [✅ note](concepts/channels.md) | `src/bin/channels.rs` |
 | Collections deep-dive | [✅ note](concepts/collections.md) | `src/bin/collections.rs` |
 | Strings & text | [✅ note](concepts/strings-text.md) | `src/bin/strings_text.rs` |
 | Iterators end-to-end | [✅ note](concepts/iterators.md) | `src/bin/iterators.rs` |

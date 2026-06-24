@@ -130,7 +130,7 @@ Fearless concurrency, *understood* — not `Arc<Mutex<T>>` cargo-culting.
 - [x] **Threads & scoped threads** — `std::thread`, `thread::scope`, `JoinHandle`
 - [x] 🔥 `**Send` & `Sync` deeply** — what they really guarantee, why `Rc` is `!Send`
 - [x] `**Mutex` / `RwLock`** — poisoning, lock guards, deadlock avoidance, lock ordering
-- [ ] **Channels** — `mpsc`, bounded vs unbounded, `crossbeam` channels, backpressure
+- [x] **Channels** — `mpsc`, bounded vs unbounded, `crossbeam` channels, backpressure
 - [ ] 🔥 **Atomics & memory ordering** — `Relaxed`/`Acquire`/`Release`/`SeqCst`, happens-before
 - [ ] 🔥 **Lock-free basics** — a `SpinLock`, atomic counters/flags, the ABA problem
 - [ ] **Data parallelism with `rayon`** — `par_iter`, work-stealing, when parallelism actually helps
