@@ -10,6 +10,7 @@
 
 - [Modules & visibility](concepts/modules.md)
 - [Cargo features & `cfg`](concepts/features-cfg.md)
+- [Testing](concepts/testing.md)
 
 ## Phase 1 — Ownership, conversions & the type system
 

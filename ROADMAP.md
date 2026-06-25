@@ -41,7 +41,7 @@ nothing here; it pays off in every later phase.
 - [x] **Modules & visibility** — `mod`, `pub(crate)`/`pub(super)`, re-exports, the module tree
 - [ ] **Crates & workspaces** — multi-crate workspaces, path/version deps, `[workspace]`
 - [x] 🔥 **Cargo features & `cfg`** — feature flags, `#[cfg(...)]`, conditional compilation, additive features ✅ *(done — `src/bin/features_cfg.rs`)*
-- [ ] 🔥 **Testing** — unit, integration (`tests/`), doctests, `#[should_panic]`, test organization
+- [x] 🔥 **Testing** — unit, integration (`tests/`), doctests, `#[should_panic]`, test organization
 - [ ] **Property-based testing** — `proptest`/`quickcheck`, shrinking, invariants over examples
 - [ ] **Fuzzing** — `cargo-fuzz`, finding panics/UB with coverage-guided input
 - [ ] **Snapshot & golden testing** — `insta`, reviewing diffs

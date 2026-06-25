@@ -1,0 +1,10 @@
+[package]
+name = "testing_lab"
+version = "0.1.0"
+edition = "2024"
+
+# A tiny LIBRARY crate (note: src/lib.rs, not src/main.rs) used by the Testing
+# ladder, rungs 7-9. Integration tests (tests/) and doctests only exist against
+# a library target — that's the whole reason this package exists.
+
+[dependencies]

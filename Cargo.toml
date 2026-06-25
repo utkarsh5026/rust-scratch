@@ -7,6 +7,7 @@ edition = "2024"
 members = [
     "practice/crates_workspaces/r1_pkg",
     "practice/crates_workspaces/r2_libbin",
+    "practice/testing_lab",
 ]
 resolver = "3"
 
@@ -55,5 +56,13 @@ crossbeam-channel = "0.5.15"
 
 # data parallelism (Phase 4 — "Data parallelism with rayon" ladder)
 rayon        = "1"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Test-only deps. Compiled ONLY under `cargo test`, never in a normal build.
+# Used by the Phase 0 "Property-based testing" ladder (src/bin/property_testing.rs).
+[dev-dependencies]
+proptest          = "1"
+quickcheck        = "1"
+quickcheck_macros = "1"
 
 

@@ -30,6 +30,7 @@ Each concept page follows the same shape:
 |---|---|---|
 | Modules & visibility | [✅ note](concepts/modules.md) | `src/bin/modules.rs` |
 | Cargo features & `cfg` | [✅ note](concepts/features-cfg.md) | `src/bin/features_cfg.rs` |
+| Testing | [✅ note](concepts/testing.md) | `src/bin/testing.rs` + `practice/testing_lab/` |
 | `Cow` | [✅ note](concepts/cow.md) | `src/bin/cow.rs` |
 | `Box` & the heap | [✅ note](concepts/box-heap.md) | `src/bin/box_heap.rs` |
 | `Rc` / `Arc` | [✅ note](concepts/rc-arc.md) | `src/bin/rc_arc.rs` |
