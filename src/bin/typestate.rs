@@ -216,7 +216,7 @@ mod door_sealed {
     // your turn: the public State trait, gated behind Sealed as a supertrait.
     // `pub trait State: Sealed {}` — outsiders can SEE it but can't IMPL it,
     // because they can't impl the private `Sealed`.
-    #[allow(dead_code)]
+    #[allow(dead_code, private_bounds)]
     pub trait State: Sealed {}
 
     pub struct Open2;
