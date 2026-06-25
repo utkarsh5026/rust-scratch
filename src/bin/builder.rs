@@ -260,11 +260,16 @@ fn check_3() {
     );
 
     // Set some, leave the rest defaulted.
-    let s2 = ServerOptsBuilder::new().port(9000).tls(true).build();
-    assert_eq!(s2.host, "127.0.0.1"); // defaulted
+    let s2 = ServerOptsBuilder::new()
+        .host("0.0.0.0")
+        .port(9000)
+        .max_conns(250)
+        .tls(true)
+        .build();
+    assert_eq!(s2.host, "0.0.0.0"); // overridden
     assert_eq!(s2.port, 9000); // overridden
     assert_eq!(s2.tls, true); // overridden
-    assert_eq!(s2.max_conns, 100); // defaulted
+    assert_eq!(s2.max_conns, 250); // overridden
 
     println!("rung 3 ✔  optionals collapse to defaults at build time");
 }
