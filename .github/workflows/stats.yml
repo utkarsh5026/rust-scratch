@@ -1,0 +1,51 @@
+name: Update stats badge
+
+# Re-render the gamified dashboard to an SVG and commit it back, so the badge
+# in README.md always reflects the latest progress. Runs when progress changes
+# (a solved rung appends to progress.json) or the renderer itself changes.
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'progress.json'
+      - 'src/bin/stats.rs'
+      - '.github/workflows/stats.yml'
+  workflow_dispatch:
+
+# Needs write access to push the regenerated SVG back to the repo.
+permissions:
+  contents: write
+
+# Never run two refreshes at once; a newer push supersedes an in-flight one.
+concurrency:
+  group: stats-badge
+  cancel-in-progress: true
+
+jobs:
+  render:
+    name: Render dashboard SVG
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo build
+        uses: Swatinem/rust-cache@v2
+
+      - name: Render dashboard to SVG
+        run: cargo run --quiet --bin stats -- --svg .github/assets/stats.svg
+
+      - name: Commit if the badge changed
+        run: |
+          if [[ -n "$(git status --porcelain .github/assets/stats.svg)" ]]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add .github/assets/stats.svg
+            # [skip ci] stops this commit from re-triggering the workflow.
+            git commit -m "chore(stats): refresh dashboard badge [skip ci]"
+            git push
+          else
+            echo "Dashboard unchanged — nothing to commit."
+          fi

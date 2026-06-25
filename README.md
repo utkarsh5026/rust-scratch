@@ -7,6 +7,14 @@ myself with coaching (never handed the answer), until I actually understand it.
 The whole thing is built around the **`rust-practice` skill** + a structured
 mastery curriculum in [`ROADMAP.md`](./ROADMAP.md).
 
+## Where I'm at
+
+<!-- Auto-rendered by .github/workflows/stats.yml on every push that changes progress.json.
+     Regenerate locally with: cargo run --bin stats -- --svg .github/assets/stats.svg -->
+<p align="center">
+  <img src="./.github/assets/stats.svg" alt="Rust mastery dashboard — rank, XP, phase progress, achievements, streak" width="540">
+</p>
+
 ## The core loop
 
 1. Name a concept → `practice <concept>` (or `/rust-practice <concept>`)

@@ -4,7 +4,13 @@
 // rung's check passes) and renders rank, XP, per-phase progress, achievements,
 // and your practice streak.
 //
-// Run with: cargo run --bin stats
+// Two backends, one layout (built as a list of colored spans):
+//   cargo run --bin stats                       -> ANSI dashboard in the terminal
+//   cargo run --bin stats -- --svg <path.svg>   -> write a colored SVG "screenshot"
+//
+// The SVG path powers the auto-updating badge in README.md (see
+// .github/workflows/stats.yml). FORCE_COLOR=1 / CLICOLOR_FORCE=1 force ANSI
+// color even when stdout isn't a TTY; NO_COLOR disables it.
 
 use serde::Deserialize;
 use std::collections::{BTreeMap, BTreeSet};
@@ -54,17 +60,21 @@ fn event_xp(e: &Event) -> u32 {
 }
 
 // ---- ranks (XP thresholds, flavored by roadmap phase) ---------------------
+// Thresholds are scaled to the FULL 93-ladder roadmap (~32k XP at completion),
+// and themed so the rank roughly tracks which phase you're conquering. A clean
+// 9-rung ladder is ~325 XP, so the top rank means you genuinely finished — not
+// that you ground bonuses on a third of the project.
 const RANKS: &[(u32, &str, &str)] = &[
     (0, "🥚", "Fledgling"),
-    (100, "🦀", "Crab"),
-    (400, "⚙️", "Trait Smith"),
-    (800, "📐", "API Architect"),
-    (1400, "🧵", "Fearless Concurrent"),
-    (2200, "⏳", "Async Adept"),
-    (3200, "☢️", "Unsafe Operator"),
-    (4400, "🚀", "Zero-Cost Wizard"),
-    (5800, "🧙", "Macro Sorcerer"),
-    (7500, "👑", "Rustacean Master"),
+    (300, "🦀", "Crab"),
+    (1500, "⚙️", "Trait Smith"),
+    (3500, "📐", "API Architect"),
+    (7000, "🧵", "Fearless Concurrent"),
+    (12000, "⏳", "Async Adept"),
+    (17000, "☢️", "Unsafe Operator"),
+    (22000, "🚀", "Zero-Cost Wizard"),
+    (27000, "🧙", "Macro Sorcerer"),
+    (32000, "👑", "Rustacean Master"),
 ];
 
 // ladders per phase, from ROADMAP.md (for progress bars)
@@ -81,7 +91,7 @@ const PHASE_TOTALS: &[(u8, &str, u32)] = &[
     (9, "Specialization", 8),
 ];
 
-// ---- terminal styling -----------------------------------------------------
+// ---- palette --------------------------------------------------------------
 type Rgb = (u8, u8, u8);
 
 // One Dark-ish palette: easy on the eyes, good contrast on dark terminals.
@@ -94,18 +104,46 @@ const PURPLE: Rgb = (198, 120, 221);
 const CYAN: Rgb = (86, 182, 194);
 const FG: Rgb = (220, 223, 228); // primary text
 const DIMC: Rgb = (92, 99, 112); // muted / empty cells
+const BG: Rgb = (24, 26, 31); // svg background
+const BG2: Rgb = (33, 37, 43); // svg window header
 
 const PANEL_WIDTH: usize = 50;
 
-// Color is on only for a real TTY and when NO_COLOR is unset (so piped output
-// stays clean ASCII). Cached so we resolve the environment exactly once.
-fn color_enabled() -> bool {
-    static ENABLED: OnceLock<bool> = OnceLock::new();
-    *ENABLED
-        .get_or_init(|| std::env::var_os("NO_COLOR").is_none() && std::io::stdout().is_terminal())
+// ---- styled spans (backend-agnostic) --------------------------------------
+// The dashboard is built as a Vec<Line>, Line = Vec<Span>. Both the ANSI and
+// the SVG renderer walk the same spans, so the two outputs can never drift.
+#[derive(Clone)]
+struct Span {
+    text: String,
+    color: Rgb,
+    bold: bool,
 }
 
-fn styled(s: &str, (r, g, b): Rgb, bold: bool) -> String {
+type Line = Vec<Span>;
+
+fn sp(text: impl Into<String>, color: Rgb, bold: bool) -> Span {
+    Span {
+        text: text.into(),
+        color,
+        bold,
+    }
+}
+
+fn color_enabled() -> bool {
+    static ENABLED: OnceLock<bool> = OnceLock::new();
+    *ENABLED.get_or_init(|| {
+        if std::env::var_os("NO_COLOR").is_some() {
+            return false;
+        }
+        if std::env::var_os("CLICOLOR_FORCE").is_some() || std::env::var_os("FORCE_COLOR").is_some()
+        {
+            return true;
+        }
+        std::io::stdout().is_terminal()
+    })
+}
+
+fn ansi(s: &str, (r, g, b): Rgb, bold: bool) -> String {
     if !color_enabled() {
         return s.to_string();
     }
@@ -126,20 +164,23 @@ fn filled_cells(done: u32, total: u32, width: u32) -> u32 {
     }
 }
 
-// Solid-color bar: filled cells in `color`, the rest dimmed.
-fn solid_bar(done: u32, total: u32, width: u32, color: Rgb) -> String {
+// Solid bar: filled cells in `color`, the rest dimmed — as spans.
+fn solid_bar(done: u32, total: u32, width: u32, color: Rgb) -> Vec<Span> {
     let filled = filled_cells(done, total, width);
-    format!(
-        "{}{}",
-        styled(&"█".repeat(filled as usize), color, false),
-        styled(&"░".repeat((width - filled) as usize), DIMC, false),
-    )
+    let mut v = Vec::new();
+    if filled > 0 {
+        v.push(sp("█".repeat(filled as usize), color, false));
+    }
+    if width > filled {
+        v.push(sp("░".repeat((width - filled) as usize), DIMC, false));
+    }
+    v
 }
 
-// Gradient bar: filled cells fade `start` → `end` across their span.
-fn grad_bar(done: u32, total: u32, width: u32, start: Rgb, end: Rgb) -> String {
+// Gradient bar: filled cells fade `start` -> `end`; one span per cell.
+fn grad_bar(done: u32, total: u32, width: u32, start: Rgb, end: Rgb) -> Vec<Span> {
     let filled = filled_cells(done, total, width);
-    let mut out = String::new();
+    let mut v = Vec::new();
     for i in 0..width {
         if i < filled {
             let t = if filled <= 1 {
@@ -147,17 +188,35 @@ fn grad_bar(done: u32, total: u32, width: u32, start: Rgb, end: Rgb) -> String {
             } else {
                 i as f32 / (filled - 1) as f32
             };
-            out.push_str(&styled("█", lerp(start, end, t), false));
+            v.push(sp("█", lerp(start, end, t), false));
         } else {
-            out.push_str(&styled("░", DIMC, false));
+            v.push(sp("░", DIMC, false));
         }
     }
-    out
+    v
 }
 
-fn rule(width: usize, heavy: bool, color: Rgb) -> String {
+fn rule(width: usize, heavy: bool, color: Rgb) -> Span {
     let ch = if heavy { "━" } else { "─" };
-    styled(&ch.repeat(width), color, false)
+    sp(ch.repeat(width), color, false)
+}
+
+fn heading(label: &str) -> Span {
+    sp(label, CYAN, true)
+}
+
+// 11655 -> "11,655" so big XP totals stay readable.
+fn commafy(n: u32) -> String {
+    let s = n.to_string();
+    let mut out = String::new();
+    let len = s.len();
+    for (i, c) in s.chars().enumerate() {
+        if i > 0 && (len - i) % 3 == 0 {
+            out.push(',');
+        }
+        out.push(c);
+    }
+    out
 }
 
 // ---- date helpers (no chrono) --------------------------------------------
@@ -222,6 +281,124 @@ fn streaks(days: &BTreeSet<i64>) -> (u32, u32) {
     (current, longest)
 }
 
+// ---- backends -------------------------------------------------------------
+fn print_ansi(lines: &[Line]) {
+    let mut out = String::new();
+    for line in lines {
+        for s in line {
+            out.push_str(&ansi(&s.text, s.color, s.bold));
+        }
+        out.push('\n');
+    }
+    print!("{out}");
+}
+
+// Rough terminal-cell width of a char (for sizing the SVG canvas only).
+fn char_cols(c: char) -> usize {
+    let u = c as u32;
+    if u == 0xFE0F {
+        0 // variation selector renders no cell of its own
+    } else if u >= 0x1F000 || matches!(u, 0x2699 | 0x2622 | 0x2B50 | 0x23F3 | 0x2728 | 0x1F004) {
+        2 // emoji presentation
+    } else {
+        1
+    }
+}
+
+fn line_cols(line: &Line) -> usize {
+    line.iter()
+        .flat_map(|s| s.text.chars())
+        .map(char_cols)
+        .sum()
+}
+
+fn hex((r, g, b): Rgb) -> String {
+    format!("#{r:02x}{g:02x}{b:02x}")
+}
+
+fn xml_escape(s: &str) -> String {
+    s.replace('&', "&amp;")
+        .replace('<', "&lt;")
+        .replace('>', "&gt;")
+}
+
+// Render the same spans to a self-contained, colored SVG "screenshot".
+fn render_svg(lines: &[Line]) -> String {
+    let char_w = 9.4_f32;
+    let line_h = 21.0_f32;
+    let pad_x = 22.0_f32;
+    let pad_y = 18.0_f32;
+    let chrome = 34.0_f32; // window header strip
+
+    let cols = lines.iter().map(line_cols).max().unwrap_or(40).max(46);
+    let width = (cols as f32) * char_w + pad_x * 2.0;
+    let height = chrome + pad_y + (lines.len() as f32) * line_h + pad_y;
+
+    let mut svg = String::new();
+    svg.push_str(&format!(
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{w:.0}\" height=\"{h:.0}\" \
+         viewBox=\"0 0 {w:.0} {h:.0}\" font-family=\"'JetBrains Mono','Fira Code','Cascadia Code',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace\" font-size=\"14\">\n",
+        w = width,
+        h = height
+    ));
+    // window background + header strip + traffic-light dots
+    svg.push_str(&format!(
+        "<rect x=\"0\" y=\"0\" width=\"{w:.0}\" height=\"{h:.0}\" rx=\"10\" fill=\"{bg}\"/>\n",
+        w = width,
+        h = height,
+        bg = hex(BG)
+    ));
+    svg.push_str(&format!(
+        "<path d=\"M0,10 a10,10 0 0 1 10,-10 H{x:.0} a10,10 0 0 1 10,10 V{c:.0} H0 Z\" fill=\"{bg2}\"/>\n",
+        x = width - 10.0,
+        c = chrome,
+        bg2 = hex(BG2)
+    ));
+    for (i, dot) in [
+        (0xe0_u8, 0x6c, 0x75),
+        (0xe5, 0xc0, 0x7b),
+        (0x98, 0xc3, 0x79),
+    ]
+    .iter()
+    .enumerate()
+    {
+        svg.push_str(&format!(
+            "<circle cx=\"{cx:.0}\" cy=\"17\" r=\"6\" fill=\"{c}\"/>\n",
+            cx = 20.0 + i as f32 * 20.0,
+            c = hex((dot.0, dot.1, dot.2))
+        ));
+    }
+    svg.push_str(&format!(
+        "<text x=\"{x:.0}\" y=\"21\" fill=\"{c}\" font-size=\"12\" text-anchor=\"middle\">cargo run --bin stats</text>\n",
+        x = width / 2.0,
+        c = hex(DIMC)
+    ));
+
+    // text lines
+    let mut y = chrome + pad_y + line_h * 0.7;
+    for line in lines {
+        if !line.is_empty() {
+            svg.push_str(&format!(
+                "<text x=\"{x:.0}\" y=\"{y:.1}\" xml:space=\"preserve\">",
+                x = pad_x,
+                y = y
+            ));
+            for s in line {
+                let weight = if s.bold { " font-weight=\"bold\"" } else { "" };
+                svg.push_str(&format!(
+                    "<tspan fill=\"{c}\"{weight}>{t}</tspan>",
+                    c = hex(s.color),
+                    t = xml_escape(&s.text)
+                ));
+            }
+            svg.push_str("</text>\n");
+        }
+        y += line_h;
+    }
+    svg.push_str("</svg>\n");
+    svg
+}
+
 fn main() {
     let raw = std::fs::read_to_string("progress.json").unwrap_or_else(|_| {
         eprintln!("(no progress.json yet — solve a ladder rung to start earning XP)");
@@ -258,6 +435,16 @@ fn main() {
         }
     }
 
+    // overall roadmap completion (capstoned ladders / total ladders across phases)
+    let total_done = completed.len() as u32;
+    let total_ladders: u32 = PHASE_TOTALS.iter().map(|(_, _, n)| *n).sum();
+    let overall_pct = if total_ladders == 0 {
+        0
+    } else {
+        total_done * 100 / total_ladders
+    };
+    let rungs_solved = events.len();
+
     // achievements
     let one_shot = events.iter().filter(|e| e.first_try).count();
     let miri = events.iter().filter(|e| e.miri_clean).count();
@@ -280,24 +467,32 @@ fn main() {
     let days: BTreeSet<i64> = events.iter().filter_map(|e| parse_day(&e.date)).collect();
     let (cur_streak, best_streak) = streaks(&days);
 
-    // ---- render ----------------------------------------------------------
-    // Layout is a stack of sections separated by horizontal rules — no closed
-    // box, so emoji double-width never breaks right-edge alignment.
-    println!();
-    println!(
-        "  {}  {}",
-        styled("🦀", RUST, true),
-        styled("RUST  MASTERY", FG, true)
-    );
-    println!("  {}", rule(PANEL_WIDTH, true, RUST));
-    println!();
+    // ---- build the layout as a list of colored spans ---------------------
+    let indent = || sp("  ", DIMC, false);
+    let mut lines: Vec<Line> = Vec::new();
 
-    // Rank headline: emoji · bold name · gold XP.
-    println!(
-        "  {emoji}  {}        {}",
-        styled(name, RUST, true),
-        styled(&format!("{total_xp} XP"), GOLD, true)
-    );
+    // Title row: brand on the left, XP total on the right edge of the panel.
+    let title = "RUST MASTERY";
+    let xp_label = format!("{} XP", commafy(total_xp));
+    let title_pad = PANEL_WIDTH.saturating_sub(4 + title.len() + xp_label.len());
+    lines.push(vec![
+        indent(),
+        sp("🦀", RUST, true),
+        sp("  ", FG, false),
+        sp(title, FG, true),
+        sp(" ".repeat(title_pad), FG, false),
+        sp(&xp_label, GOLD, true),
+    ]);
+    lines.push(vec![indent(), rule(PANEL_WIDTH, true, RUST)]);
+    lines.push(Vec::new());
+
+    // RANK
+    lines.push(vec![
+        indent(),
+        sp(emoji, RUST, true),
+        sp("  ", FG, false),
+        sp(name, FG, true),
+    ]);
     match next {
         Some((t, ne, nn)) => {
             let span_lo = RANKS
@@ -309,74 +504,97 @@ fn main() {
             let into = total_xp - span_lo;
             let span = t - span_lo;
             let pct = if span == 0 { 100 } else { into * 100 / span };
-            println!(
-                "  {}",
-                styled(
-                    &format!("next  {ne} {nn}  ·  {} XP to go", t - total_xp),
+            let mut bar = vec![indent()];
+            bar.extend(grad_bar(into, span, 22, RUST, GOLD));
+            bar.push(sp("  ", FG, false));
+            bar.push(sp(format!("{pct}%"), FG, true));
+            lines.push(bar);
+            lines.push(vec![
+                indent(),
+                sp(
+                    format!("next  {ne} {nn}  ·  {} XP to go", commafy(t - total_xp)),
                     DIMC,
-                    false
-                )
-            );
-            println!(
-                "  {}  {}",
-                grad_bar(into, span, 28, RUST, GOLD),
-                styled(&format!("{into}/{span}  ·  {pct}%"), FG, false)
-            );
+                    false,
+                ),
+            ]);
         }
-        None => println!("  {}", styled("👑  MAX RANK", GOLD, true)),
+        None => {
+            let mut bar = vec![indent()];
+            bar.extend(grad_bar(1, 1, 22, RUST, GOLD));
+            bar.push(sp("  ", FG, false));
+            bar.push(sp(
+                format!("MAX RANK  ·  {overall_pct}% of roadmap done"),
+                GOLD,
+                true,
+            ));
+            lines.push(bar);
+        }
     }
-    println!();
-    println!("  {}", rule(PANEL_WIDTH, false, DIMC));
-    println!();
+    lines.push(Vec::new());
 
-    // Phases.
-    let total_done: u32 = completed.len() as u32;
-    let total_ladders: u32 = PHASE_TOTALS.iter().map(|(_, _, n)| *n).sum::<u32>() + 6; // +capstones
-    println!(
-        "  {}{}{}",
-        styled("PHASES", FG, true),
-        " ".repeat(PANEL_WIDTH.saturating_sub(6 + 17)),
-        styled(
-            &format!("{total_done} / {total_ladders} ladders cleared"),
-            DIMC,
-            false
-        )
-    );
-    println!();
+    // ROADMAP
+    let right = format!("{total_done}/{total_ladders} ladders  ·  {overall_pct}%");
+    let pad = PANEL_WIDTH.saturating_sub("ROADMAP".len() + right.len());
+    lines.push(vec![
+        indent(),
+        heading("ROADMAP"),
+        sp(" ".repeat(pad), DIMC, false),
+        sp(&right, DIMC, false),
+    ]);
+    let mut bar = vec![indent()];
+    bar.extend(grad_bar(
+        total_done,
+        total_ladders,
+        PANEL_WIDTH as u32,
+        RUST,
+        GOLD,
+    ));
+    lines.push(bar);
+    lines.push(vec![
+        indent(),
+        sp(format!("{rungs_solved} rungs solved"), DIMC, false),
+    ]);
+    lines.push(Vec::new());
+
+    // PHASES — columns: mark · Pn · label(20) · bar(16) · right-aligned count.
+    lines.push(vec![indent(), heading("PHASES")]);
     for (p, label, total) in PHASE_TOTALS {
         let done = done_per_phase.get(p).copied().unwrap_or(0);
         let complete = done >= *total;
         let started = done > 0;
-        let (mark, bar_color, label_color, count_color) = if complete {
-            (styled("✓", GREEN, true), GREEN, FG, GREEN)
+        let (mark, mark_c, bar_color, label_color, count_color) = if complete {
+            ("✓", GREEN, GREEN, FG, GREEN)
         } else if started {
-            (styled("▸", RUST, true), RUST, FG, GOLD)
+            ("▸", RUST, RUST, FG, GOLD)
         } else {
-            (styled("·", DIMC, false), DIMC, DIMC, DIMC)
+            ("·", DIMC, DIMC, DIMC, DIMC)
         };
-        println!(
-            "  {mark} {}  {}  {}  {}",
-            styled(&format!("P{p}"), DIMC, false),
-            styled(&format!("{label:<22}"), label_color, false),
-            solid_bar(done, *total, 16, bar_color),
-            styled(&format!("{done}/{total}"), count_color, false)
-        );
+        let count = format!("{:>5}", format!("{done}/{total}"));
+        let mut row = vec![
+            indent(),
+            sp(mark, mark_c, true),
+            sp(format!(" P{p} "), DIMC, false),
+            sp(format!("{label:<20}"), label_color, false),
+            sp("  ", FG, false),
+        ];
+        row.extend(solid_bar(done, *total, 16, bar_color));
+        row.push(sp("  ", FG, false));
+        row.push(sp(count, count_color, false));
+        lines.push(row);
     }
-    println!();
-    println!("  {}", rule(PANEL_WIDTH, false, DIMC));
-    println!();
+    lines.push(Vec::new());
 
-    // Achievements — each present badge becomes a styled chip, two per row.
-    println!("  {}", styled("ACHIEVEMENTS", FG, true));
-    println!();
-    let mut chips: Vec<String> = Vec::new();
+    // ACHIEVEMENTS
+    lines.push(vec![indent(), heading("ACHIEVEMENTS")]);
+    let mut chips: Vec<Vec<Span>> = Vec::new();
     let mut chip = |n: usize, icon: &str, label: &str, color: Rgb| {
         if n > 0 {
-            chips.push(format!(
-                "{icon}  {} {}",
-                styled(label, FG, false),
-                styled(&format!("×{n}"), color, true)
-            ));
+            chips.push(vec![
+                sp(format!("{icon}  "), FG, false),
+                sp(label, FG, false),
+                sp(" ", FG, false),
+                sp(format!("×{n}"), color, true),
+            ]);
         }
     };
     chip(hint_free, "🏅", "Hint-Free", GOLD);
@@ -385,35 +603,72 @@ fn main() {
     chip(capstones, "🏛️", "Capstone", PURPLE);
     chip(phase_clears, "⭐", "Phase Clear", GOLD);
     if best_streak >= 7 {
-        chips.push(format!("🔥  {}", styled("Streak-7", RED, true)));
+        chips.push(vec![sp("🔥  ", RED, false), sp("Streak-7", RED, true)]);
     }
     if chips.is_empty() {
-        println!("  {}", styled("(none yet — go solve a rung!)", DIMC, false));
+        lines.push(vec![
+            indent(),
+            sp("(none yet — go solve a rung!)", DIMC, false),
+        ]);
     } else {
-        for row in chips.chunks(2) {
-            println!("  {}", row.join("       "));
+        for pair in chips.chunks(2) {
+            let mut row = vec![indent()];
+            for (i, c) in pair.iter().enumerate() {
+                if i > 0 {
+                    row.push(sp("        ", FG, false));
+                }
+                row.extend(c.clone());
+            }
+            lines.push(row);
         }
     }
-    println!();
+    lines.push(Vec::new());
 
-    // Streak footer.
+    // STREAK footer
+    lines.push(vec![indent(), rule(PANEL_WIDTH, false, DIMC)]);
     if cur_streak > 0 {
-        println!(
-            "  {} {}   {}",
-            styled("🔥", RED, false),
-            styled(&format!("{cur_streak}-day streak"), RED, true),
-            styled(&format!("·  best {best_streak}"), DIMC, false)
-        );
+        lines.push(vec![
+            indent(),
+            sp("🔥", RED, false),
+            sp("  ", FG, false),
+            sp(format!("{cur_streak}-day streak"), RED, true),
+            sp(format!("  ·  best {best_streak}"), DIMC, false),
+        ]);
     } else {
-        println!(
-            "  {} {}",
-            styled("🔥", DIMC, false),
-            styled(
-                &format!("no active streak — practice today to start one  ·  best {best_streak}"),
+        lines.push(vec![
+            indent(),
+            sp("🔥", DIMC, false),
+            sp("  ", FG, false),
+            sp(
+                format!("no active streak — practice today  ·  best {best_streak}"),
                 DIMC,
-                false
-            )
-        );
+                false,
+            ),
+        ]);
     }
-    println!();
+
+    // ---- dispatch to a backend -------------------------------------------
+    let args: Vec<String> = std::env::args().collect();
+    let svg_out = args
+        .iter()
+        .position(|a| a == "--svg")
+        .and_then(|i| args.get(i + 1))
+        .cloned()
+        .or_else(|| std::env::var("STATS_SVG_OUT").ok());
+
+    match svg_out {
+        Some(path) => {
+            let svg = render_svg(&lines);
+            if let Some(dir) = std::path::Path::new(&path).parent() {
+                let _ = std::fs::create_dir_all(dir);
+            }
+            std::fs::write(&path, svg).expect("failed to write SVG");
+            eprintln!("wrote dashboard SVG -> {path}");
+        }
+        None => {
+            println!();
+            print_ansi(&lines);
+            println!();
+        }
+    }
 }
