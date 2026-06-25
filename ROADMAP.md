@@ -89,7 +89,7 @@ Design abstractions, not just consume them. The single biggest intermediate→ad
 - [x] **Generic bounds & `where` clauses** — multiple bounds, conditional impls, `T: ?Sized` ✅ *(done — `src/bin/generic_bounds.rs`)*
 - [x] 🔥 **Blanket impls & coherence** — the orphan rule, why it exists, newtype workarounds ✅ *(done — `src/bin/blanket_coherence.rs`)*
 - [ ] **Sealed traits** — restricting who can implement your trait, and why
-- [ ] **Marker & auto traits** — `Send`, `Sync`, `Sized`, `Copy`; `?Sized`; negative reasoning
+- [x] **Marker & auto traits** — `Send`, `Sync`, `Sized`, `Copy`; `?Sized`; negative reasoning ✅ *(done — `src/bin/marker_auto_traits.rs`)*
 - [ ] **Operator overloading & `Deref`** — `Add`, `Index`, deref coercion, `Deref` abuse
 - [x] 🔥 `**impl Trait` & RPIT** — `impl Trait` in args/returns, `async fn` desugaring ✅ *(done — `src/bin/impl_trait.rs`)*
 - [ ] **GATs (generic associated types)** — lending iterators, the patterns they unlock

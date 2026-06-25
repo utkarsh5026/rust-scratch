@@ -116,6 +116,7 @@ Say **"what's next"** to pull the next unchecked item and start its ladder.
 | Static vs dynamic dispatch | [`src/bin/dispatch.rs`](./src/bin/dispatch.rs) | 9 — monomorphization vs vtable → object safety → static/dynamic/enum pipeline |
 | Closures & `Fn`/`FnMut`/`FnOnce` | [`src/bin/closures.rs`](./src/bin/closures.rs) | 9 — capture modes → `Fn ⊂ FnMut ⊂ FnOnce` → desugar by hand → `impl Fn` vs `Box<dyn Fn>` → fn-pointer coercion → `Box<dyn FnMut>` event dispatcher |
 | `impl Trait` & RPIT | [`src/bin/impl_trait.rs`](./src/bin/impl_trait.rs) | 9 — APIT (caller picks) vs RPIT (callee picks one hidden type) → turbofish footgun → return closures/chains → one-type rule (Box/Vec/`Either`) → 2024 lifetime auto-capture + `use<>` → `async fn` ≡ `-> impl Future` → RPITIT & async-fn-in-trait (not dyn-safe) → combinator toolkit |
+| Marker & auto traits | [`src/bin/marker_auto_traits.rs`](./src/bin/marker_auto_traits.rs) | 9 — marker permissions → `Copy`/`Sized`/`?Sized` → structural `Send`/`Sync` → opt-out/opt-in with `PhantomData` and `unsafe impl` → sealed typestate capstone |
 
 **Phase 3 — API & error design**
 
