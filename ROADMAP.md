@@ -133,7 +133,7 @@ Fearless concurrency, *understood* — not `Arc<Mutex<T>>` cargo-culting.
 - [x] **Channels** — `mpsc`, bounded vs unbounded, `crossbeam` channels, backpressure
 - [ ] 🔥 **Atomics & memory ordering** — `Relaxed`/`Acquire`/`Release`/`SeqCst`, happens-before
 - [ ] 🔥 **Lock-free basics** — a `SpinLock`, atomic counters/flags, the ABA problem
-- [ ] **Data parallelism with `rayon`** — `par_iter`, work-stealing, when parallelism actually helps
+- [x] **Data parallelism with `rayon`** — `par_iter`, work-stealing, when parallelism actually helps
 - [ ] **Architecture: shared state vs message passing** — choosing, and combining, the two models
 
 *Mastery check:* you can implement a correct `SpinLock` with the right orderings

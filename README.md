@@ -137,6 +137,7 @@ Say **"what's next"** to pull the next unchecked item and start its ladder.
 | `Send` & `Sync` deeply | [`src/bin/send_sync.rs`](./src/bin/send_sync.rs) | 9 — auto-derivation → the four quadrants → hand-rolled `SpinLock` |
 | `Mutex` / `RwLock` | [`src/bin/mutex_rwlock.rs`](./src/bin/mutex_rwlock.rs) | 9 — guard RAII → `Arc<Mutex>` counter → `RwLock` readers-xor-writer → poisoning & recovery → non-reentrancy → ABBA deadlock + lock ordering → `Condvar` queue → concurrent `Bank` |
 | Channels | [`src/bin/channels.rs`](./src/bin/channels.rs) | 9 — `mpsc` send/recv → multi-producer `tx.clone()` → receiver-as-iterator (drop the sender) → `sync_channel` bounded/rendezvous backpressure → the hang + `RecvError`/`SendError` → `try_recv` Empty vs Disconnected → worker pool (`Arc<Mutex<Receiver>>`) → crossbeam mpmc + `select!` → hand-rolled `Channel<T>` (`Mutex`+`Condvar`) |
+| Data parallelism with `rayon` | [`src/bin/rayon_parallel.rs`](./src/bin/rayon_parallel.rs) | 9 — `par_iter().sum()` → `map`/`filter`/`collect` (order preserved) → `reduce`/`fold` (identity closure, fold-then-reduce) → `rayon::join` fork-join primitive → break-even: when parallel LOSES vs WINS → non-associative reduce = silent non-determinism → shared-state wall (`for_each` push won't compile; `collect` vs `Mutex`) → `par_sort` + `par_bridge` → capstone: hand-rolled `parallel_map` + parallel quicksort (`split_at_mut` + `join`) |
 
 _(early standalone demos, not ladders: `src/bin/lifetimes.rs`, `src/bin/traits.rs`)_
 
