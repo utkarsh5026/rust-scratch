@@ -134,7 +134,7 @@ Fearless concurrency, *understood* — not `Arc<Mutex<T>>` cargo-culting.
 - [ ] 🔥 **Atomics & memory ordering** — `Relaxed`/`Acquire`/`Release`/`SeqCst`, happens-before
 - [ ] 🔥 **Lock-free basics** — a `SpinLock`, atomic counters/flags, the ABA problem
 - [x] **Data parallelism with `rayon`** — `par_iter`, work-stealing, when parallelism actually helps
-- [ ] **Architecture: shared state vs message passing** — choosing, and combining, the two models
+- [x] **Architecture: shared state vs message passing** — choosing, and combining, the two models ✅ *(done — `src/bin/concurrency_models.rs`)*
 
 *Mastery check:* you can implement a correct `SpinLock` with the right orderings
 and explain why `Relaxed` would be a bug there.

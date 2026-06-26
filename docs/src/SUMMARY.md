@@ -54,6 +54,7 @@
 - [`Mutex` / `RwLock`](concepts/mutex-rwlock.md)
 - [Channels](concepts/channels.md)
 - [Data parallelism with `rayon`](concepts/rayon-parallel.md)
+- [Shared state vs message passing](concepts/concurrency-models.md)
 
 ---
 

@@ -1362,7 +1362,7 @@
     },
     {
       "date": "2026-06-20",
-      "phase": 3,
+      "phase": 2,
       "concept": "marker_auto_traits",
       "rung": 1,
       "tier": "foundations",
@@ -1372,7 +1372,7 @@
     },
     {
       "date": "2026-06-20",
-      "phase": 3,
+      "phase": 2,
       "concept": "marker_auto_traits",
       "rung": 2,
       "tier": "foundations",
@@ -1382,7 +1382,7 @@
     },
     {
       "date": "2026-06-20",
-      "phase": 3,
+      "phase": 2,
       "concept": "marker_auto_traits",
       "rung": 3,
       "tier": "mechanics",
@@ -1392,7 +1392,7 @@
     },
     {
       "date": "2026-06-20",
-      "phase": 3,
+      "phase": 2,
       "concept": "marker_auto_traits",
       "rung": 4,
       "tier": "mechanics",
@@ -1402,7 +1402,7 @@
     },
     {
       "date": "2026-06-20",
-      "phase": 3,
+      "phase": 2,
       "concept": "marker_auto_traits",
       "rung": 5,
       "tier": "footgun",
@@ -3224,6 +3224,196 @@
       "date": "2026-06-25",
       "phase": 0,
       "concept": "testing",
+      "rung": 9,
+      "tier": "capstone",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-20",
+      "phase": 2,
+      "concept": "marker_auto_traits",
+      "rung": 6,
+      "tier": "footgun",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-20",
+      "phase": 2,
+      "concept": "marker_auto_traits",
+      "rung": 7,
+      "tier": "real-world",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-20",
+      "phase": 2,
+      "concept": "marker_auto_traits",
+      "rung": 8,
+      "tier": "real-world",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 2,
+      "concept": "marker_auto_traits",
+      "rung": 9,
+      "tier": "capstone",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-20",
+      "phase": 2,
+      "concept": "marker_auto_traits",
+      "rung": 9,
+      "tier": "capstone",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 1,
+      "concept": "variance",
+      "rung": 3,
+      "tier": "mechanics",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 1,
+      "concept": "variance",
+      "rung": 4,
+      "tier": "footgun",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 1,
+      "concept": "variance",
+      "rung": 5,
+      "tier": "footgun",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 1,
+      "concept": "variance",
+      "rung": 6,
+      "tier": "real-world",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 1,
+      "concept": "variance",
+      "rung": 7,
+      "tier": "real-world",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-26",
+      "phase": 4,
+      "concept": "concurrency_models",
+      "rung": 4,
+      "tier": "mechanics",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 4,
+      "concept": "concurrency_models",
+      "rung": 4,
+      "tier": "mechanics",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 4,
+      "concept": "concurrency_models",
+      "rung": 5,
+      "tier": "footgun",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-26",
+      "phase": 0,
+      "concept": "property_testing",
+      "rung": 1,
+      "tier": "foundations",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 4,
+      "concept": "concurrency_models",
+      "rung": 6,
+      "tier": "footgun",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 4,
+      "concept": "concurrency_models",
+      "rung": 7,
+      "tier": "real-world",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 4,
+      "concept": "concurrency_models",
+      "rung": 8,
+      "tier": "real-world",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-26",
+      "phase": 0,
+      "concept": "property_testing",
+      "rung": 2,
+      "tier": "foundations",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-25",
+      "phase": 4,
+      "concept": "concurrency_models",
       "rung": 9,
       "tier": "capstone",
       "hints": 0,

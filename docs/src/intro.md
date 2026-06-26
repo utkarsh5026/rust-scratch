@@ -59,6 +59,7 @@ Each concept page follows the same shape:
 | `Mutex` / `RwLock` | [✅ note](concepts/mutex-rwlock.md) | `src/bin/mutex_rwlock.rs` |
 | Channels | [✅ note](concepts/channels.md) | `src/bin/channels.rs` |
 | Data parallelism with `rayon` | [✅ note](concepts/rayon-parallel.md) | `src/bin/rayon_parallel.rs` |
+| Shared state vs message passing | [✅ note](concepts/concurrency-models.md) | `src/bin/concurrency_models.rs` |
 | Collections deep-dive | [✅ note](concepts/collections.md) | `src/bin/collections.rs` |
 | Strings & text | [✅ note](concepts/strings-text.md) | `src/bin/strings_text.rs` |
 | Iterators end-to-end | [✅ note](concepts/iterators.md) | `src/bin/iterators.rs` |
