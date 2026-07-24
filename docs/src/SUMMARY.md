@@ -59,6 +59,7 @@
 ## Phase 5 — Async internals
 
 - [`Future` trait & `poll`](concepts/future-poll.md)
+- [`Pin` & `Unpin`](concepts/pin-unpin.md)
 - [tokio essentials](concepts/tokio-essentials.md)
 
 ---

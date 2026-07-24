@@ -147,7 +147,7 @@ and explain why `Relaxed` would be a bug there.
 Understand async from the `Future` trait up, not just `.await` syntax.
 
 - [x] 🔥 `**Future` trait & `poll`** — what `.await` desugars to, the generated state machine ✅ *(done — `src/bin/future_poll.rs`)*
-- [ ] 🔥 `**Pin` & `Unpin**` — self-referential futures, why `Pin` exists, `Box::pin`
+- [x] 🔥 `**Pin` & `Unpin**` — self-referential futures, why `Pin` exists, `Box::pin` ✅ *(done — `src/bin/pin_unpin.rs`)*
 - [ ] **Writing a future by hand** — implement `Future`, wakers, `Context`
 - [ ] 🔥 **Building a tiny executor** — poll loop, task queue, waking — runtimes demystified
 - [ ] `**pin-project`** — safe field projection through `Pin` without unsafe
