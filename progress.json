@@ -3419,6 +3419,126 @@
       "hints": 0,
       "first_try": true,
       "miri_clean": false
+    },
+    {
+      "date": "2026-06-26",
+      "phase": 0,
+      "concept": "property_testing",
+      "rung": 3,
+      "tier": "mechanics",
+      "hints": 1,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-26",
+      "phase": 0,
+      "concept": "property_testing",
+      "rung": 4,
+      "tier": "mechanics",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-06-26",
+      "phase": 0,
+      "concept": "property_testing",
+      "rung": 5,
+      "tier": "footgun",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "future_poll",
+      "rung": 1,
+      "tier": "foundations",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "future_poll",
+      "rung": 2,
+      "tier": "foundations",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "future_poll",
+      "rung": 3,
+      "tier": "mechanics",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "future_poll",
+      "rung": 4,
+      "tier": "mechanics",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "future_poll",
+      "rung": 5,
+      "tier": "footgun",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "future_poll",
+      "rung": 6,
+      "tier": "footgun",
+      "hints": 1,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "future_poll",
+      "rung": 7,
+      "tier": "real-world",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "future_poll",
+      "rung": 8,
+      "tier": "real-world",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "future_poll",
+      "rung": 9,
+      "tier": "capstone",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
     }
   ]
 }

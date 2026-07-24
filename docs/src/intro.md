@@ -63,6 +63,7 @@ Each concept page follows the same shape:
 | Collections deep-dive | [✅ note](concepts/collections.md) | `src/bin/collections.rs` |
 | Strings & text | [✅ note](concepts/strings-text.md) | `src/bin/strings_text.rs` |
 | Iterators end-to-end | [✅ note](concepts/iterators.md) | `src/bin/iterators.rs` |
+| `Future` trait & `poll` | [✅ note](concepts/future-poll.md) | `src/bin/future_poll.rs` |
 
 New notes get added under **Concepts** as each ladder is finished — see
 [Adding a new note](meta/adding-a-note.md).

@@ -56,6 +56,10 @@
 - [Data parallelism with `rayon`](concepts/rayon-parallel.md)
 - [Shared state vs message passing](concepts/concurrency-models.md)
 
+## Phase 5 — Async internals
+
+- [`Future` trait & `poll`](concepts/future-poll.md)
+
 ---
 
 # Meta
