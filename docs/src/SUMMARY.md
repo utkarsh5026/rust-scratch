@@ -59,6 +59,7 @@
 ## Phase 5 — Async internals
 
 - [`Future` trait & `poll`](concepts/future-poll.md)
+- [tokio essentials](concepts/tokio-essentials.md)
 
 ---
 

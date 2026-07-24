@@ -3539,6 +3539,136 @@
       "hints": 0,
       "first_try": true,
       "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "pin_unpin",
+      "rung": 1,
+      "tier": "foundations",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "pin_unpin",
+      "rung": 2,
+      "tier": "foundations",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "tokio_essentials",
+      "rung": 1,
+      "tier": "foundations",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "pin_unpin",
+      "rung": 3,
+      "tier": "mechanics",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "tokio_essentials",
+      "rung": 2,
+      "tier": "foundations",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "tokio_essentials",
+      "rung": 3,
+      "tier": "mechanics",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "tokio_essentials",
+      "rung": 4,
+      "tier": "mechanics",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "tokio_essentials",
+      "rung": 5,
+      "tier": "footgun",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "pin_unpin",
+      "rung": 4,
+      "tier": "footgun",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "tokio_essentials",
+      "rung": 6,
+      "tier": "footgun",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "tokio_essentials",
+      "rung": 7,
+      "tier": "real-world",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "tokio_essentials",
+      "rung": 8,
+      "tier": "real-world",
+      "hints": 0,
+      "first_try": true,
+      "miri_clean": false
+    },
+    {
+      "date": "2026-07-24",
+      "phase": 5,
+      "concept": "tokio_essentials",
+      "rung": 9,
+      "tier": "capstone",
+      "hints": 2,
+      "first_try": false,
+      "miri_clean": false
     }
   ]
 }

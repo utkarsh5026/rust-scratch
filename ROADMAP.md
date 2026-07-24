@@ -151,7 +151,7 @@ Understand async from the `Future` trait up, not just `.await` syntax.
 - [ ] **Writing a future by hand** — implement `Future`, wakers, `Context`
 - [ ] 🔥 **Building a tiny executor** — poll loop, task queue, waking — runtimes demystified
 - [ ] `**pin-project`** — safe field projection through `Pin` without unsafe
-- [ ] `**tokio` essentials** — tasks, `spawn`, `select!`, `join!`, `spawn_blocking`
+- [x] `**tokio` essentials** — tasks, `spawn`, `select!`, `join!`, `spawn_blocking`
 - [ ] **Cancellation & structured concurrency** — drop = cancel, `CancellationToken`, `JoinSet`
 - [ ] **Async traits & lifetimes** — `async fn` in traits, `async-trait`, the lifetime gotchas
 - [ ] **Streams** — `Stream` trait, async iteration, `StreamExt`, backpressure
